@@ -1,1 +1,18 @@
-/: 
+#Index
+/:
+  title:
+  controller:
+  action:
+  rights:
+
+/register:
+  title:
+  controller:
+  action:
+  rights:
+
+/connect:
+  title:
+  controller:
+  action:
+  rights:
