@@ -1,18 +1,24 @@
-#Index
 /:
-  title:
-  controller:
-  action:
-  rights:
+  controller: general
+  action: home
+
+/me-contacter:
+  controller: general
+  action: contact
+
+/login:
+  controller: user
+  action: login
+
+/logout:
+  controller: user
+  action: logout
 
 /register:
-  title:
-  controller:
-  action:
-  rights:
+  controller: user
+  action: register
 
-/connect:
-  title:
-  controller:
-  action:
-  rights:
+
+/dashboard:
+  controller: admin
+  action: dashboard
