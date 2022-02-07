@@ -7,12 +7,13 @@
 </div>
 
 ---
-#Screenshots
-[comment]: <> (Here put screenshots of the project)
+# Screenshots
+
+[comment]: <> (Add screenshots of the project)
 
 ---
 
-#Documentation
+# Documentation
 
 > Ici vous prouvez retrouver la documentation : 
 
