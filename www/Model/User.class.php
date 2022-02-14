@@ -94,7 +94,7 @@ class User extends BaseSQL
     /**
      * @return null
      */
-    public function getStatus(): int
+    public function getStatus(): ?int
     {
         return $this->status;
     }

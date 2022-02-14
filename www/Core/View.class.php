@@ -14,11 +14,13 @@ class View
         $this->setTemplate($template);
     }
 
-    public function setView($view){
+    public function setView($view):void
+    {
         $this->view = strtolower($view);
     }
 
-    public function setTemplate($template){
+    public function setTemplate($template):void
+    {
         $this->template = strtolower($template);
     }
 
@@ -27,7 +29,7 @@ class View
         $this->data[$key] = $value;
     }
 
-    public function includePartial($name, $config)
+    public function includePartial($name, $config):void
     {
         if(!file_exists("View/Partial/".$name.".partial.php"))
         {
@@ -36,11 +38,9 @@ class View
         include "View/Partial/".$name.".partial.php";
     }
 
-    public function __toString():string
-    {
-        return "Ceci est la classe View";
+    public function setTitle($title):void{
+        $this->title = is_string($title) ? $title : null; 
     }
-
 
     public function __destruct()
     {
