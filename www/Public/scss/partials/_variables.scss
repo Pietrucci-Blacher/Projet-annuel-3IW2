@@ -1,1 +1,23 @@
-$columns: 12;
+$breakpoints:
+	'xs' 0px,
+	'sm' 540px,
+	'md' 720px,
+	'lg' 960px,
+	'xl' 1140px;
+
+$cols: 12;
+
+$smContainerWidth: 576px;
+$mdContainerWidth: 768px;
+$lgContainerWidth: 992px;
+$xlContainerWidth: 1200px;
+
+$containerWidth: (
+	"sm": $smContainerWidth,
+	"md": $mdContainerWidth,
+	"lg": $lgContainerWidth,
+	"xl": $xlContainerWidth
+) !default;
+
+$gutter: 15px
+

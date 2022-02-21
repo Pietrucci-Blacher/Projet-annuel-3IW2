@@ -1,0 +1,44 @@
+@import "partials/variables";
+
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: sans-serif;
+}
+
+@each $breakpoint, $value in $breakpoints {
+	@media screen and (min-width: $value) {
+		.container{
+			max-width: map-get($containerWidth, $breakpoint);
+		}
+	}
+}
+
+.container {
+	width: 100%;
+	padding-right: $gutter / 2;
+	padding-left: $gutter / 2;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.col {
+	flex: 0 0 auto;
+	padding-left: 7.5px;
+	padding-right: 7.5px;
+}
+
+@for $i from 1 through 12 {
+	.col-#{$i} {
+		flex: 0 0 100% / $cols * $i;
+		max-width: 100% / $cols * $i;
+		padding-left: 7.5px;
+		padding-right: 7.5px;
+	}
+}
+
