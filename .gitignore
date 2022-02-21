@@ -1,2 +1,4 @@
 #Jetbrains
 .idea
+#Project
+db_data/

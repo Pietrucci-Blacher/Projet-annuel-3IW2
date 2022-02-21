@@ -1,4 +1,3 @@
-Création du formulaire
 <form method="<?= $config["config"]["method"]??"POST" ?>" action="<?= $config["config"]["action"]??""?>" enctype="<?= $config["config"]["uploadform"]? "multipart/form-data" : ""?>">
 
     <?php foreach ($config["inputs"] as $name => $input) : ?>
