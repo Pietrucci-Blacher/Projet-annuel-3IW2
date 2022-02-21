@@ -2,3 +2,6 @@
 .idea
 #Project
 db_data/
+
+www/Public/node_modules/
+www/Public/package-lock.json
