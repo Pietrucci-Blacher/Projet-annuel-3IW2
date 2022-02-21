@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title><?= $titleSeo??"Template du front" ?></title>
+    <title><?= $title??"Template du front" ?></title>
     <meta name="description" content="ceci est la description de ma page">
 </head>
 <body>

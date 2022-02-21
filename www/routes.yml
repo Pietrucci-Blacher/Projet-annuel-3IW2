@@ -7,15 +7,15 @@
   action: contact
 
 /login:
-  controller: user
+  controller: security
   action: login
 
 /logout:
-  controller: user
+  controller: security
   action: logout
 
 /register:
-  controller: user
+  controller: security
   action: register
 
 

@@ -59,9 +59,30 @@ abstract class BaseSQL
 
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute( $columns );
-
-
-
     }
 
+    public function find($items) {
+        $whereConditions = [];
+        $whereClause = [];
+        $query = "SELECT * FROM $this->table";
+        if(!empty($items)) {
+            foreach($items as $key => $value) {
+                $whereConditions[] = "$key = '$value'";
+            }
+
+            $whereClause = ' WHERE ' . implode(' AND ', $whereConditions);
+        }
+
+        $queryPrepared = $this->pdo->prepare($query.$whereClause);
+        $queryPrepared->execute();
+        $data = $queryPrepared->fetch(\PDO::FETCH_ASSOC);
+
+        if($data) {
+            return $data;
+        } else {
+            return "error";
+        }
+
+        return false;
+    }
 }
