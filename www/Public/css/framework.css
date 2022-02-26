@@ -42,7 +42,7 @@ body {
 }
 
 .col {
-  flex: 0 0 auto;
+  flex: 1 0 auto;
   padding-left: 7.5px;
   padding-right: 7.5px;
 }
@@ -129,5 +129,31 @@ body {
   max-width: 100%;
   padding-left: 7.5px;
   padding-right: 7.5px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -7.5px;
+  margin-right: -7.5px;
+  width: 100%;
+}
+
+.row.no-gutter {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.row.no-gutter > * {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
 }
 
