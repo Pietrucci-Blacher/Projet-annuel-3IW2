@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title><?= $title??"Template du front" ?></title>
     <meta name="description" content="ceci est la description de ma page">
+    <link rel="stylesheet" href="../Public/css/framework.css">
+    <link rel="stylesheet" href="../Public/css/stylesheet.css">
 </head>
 <body>
 
