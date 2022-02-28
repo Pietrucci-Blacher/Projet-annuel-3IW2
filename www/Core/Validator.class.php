@@ -12,7 +12,7 @@ class Validator
             $result[]="Formulaire modifié par user";
         }
         foreach ($config["inputs"] as $name=>$input){
-
+            
             if(!isset($data[$name])){
                 $result[]="Il manque des champs";
             }

@@ -187,10 +187,11 @@ class User extends BaseSQL
                     "confirm"=>"password",
                     "error"=>"Votre mot de passe de confirmation ne correspond pas",
                 ],
-                "captcha"=>[
-                    "class" => "h-captcha",
-                    "sitekey" => CAPTCHA_SITEKEY
-                ],
+                // "captcha"=>[
+                //     "type" => "",
+                //     "class" => "h-captcha",
+                //     "sitekey" => CAPTCHA_SITEKEY
+                // ],
             ],
         ];
     }
