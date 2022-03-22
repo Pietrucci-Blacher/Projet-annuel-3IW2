@@ -38,7 +38,7 @@ $action = strtolower($routes[$uri]["action"]);
 // $controller = User ou $controller = Global
 // $action = login ou $action = logout ou $action = home
 
-$controllerFile = "Controller/".$controller.".class.php";
+$controllerFile = "Controller/".$controller."Controller.php";
 if(!file_exists($controllerFile)){
     die("Le controller ".$controllerFile." n'existe pas");
 }

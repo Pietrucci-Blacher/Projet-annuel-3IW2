@@ -7,7 +7,7 @@ use App\Core\Validator;
 use App\Core\View;
 use App\Model\User as UserModel;
 
-class User{
+class User {
 
     public function login()
     {
