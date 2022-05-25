@@ -1,3 +1,6 @@
-<h1>S'inscrire</h1>
-
-<?php $this->includePartial("form", $user->getFormRegister()) ?>
+<section class="register">
+    
+    <h1>S'inscrire</h1>
+    
+    <?php $this->includePartial("form", $user->getFormRegister()) ?>
+</section>

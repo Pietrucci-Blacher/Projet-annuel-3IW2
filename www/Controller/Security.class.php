@@ -22,7 +22,7 @@ class Security
                 $hash_password_db = $data["password"];
 
                 if(password_verify($password, $hash_password_db)) {
-                    header('location: /');
+                    header('location: /admin');
                 } else {
                     return "password invalid";
                 }
@@ -45,6 +45,8 @@ class Security
                 $user->setLastname($_POST["lastname"]);
                 $user->setFirstname($_POST["firstname"]);
                 $user->save();
+
+                header('location: /login');
             }
         }
         $view = new View("register");

@@ -1,3 +1,5 @@
-<h1>Se connecter</h1>
-
-<?php $this->includePartial("form", $user->getFormLogin()) ?>
+<section class="login">
+    <h1>Se connecter</h1>
+    
+    <?php $this->includePartial("form", $user->getFormLogin()) ?>
+</section>

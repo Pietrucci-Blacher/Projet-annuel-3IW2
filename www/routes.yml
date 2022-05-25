@@ -18,7 +18,12 @@
   controller: security
   action: register
 
-
-/dashboard:
+/admin:
   controller: admin
   action: dashboard
+
+/admin/dashboard:
+  controller: admin
+  action: dashboard
+
+/admin/articles:
