@@ -2,6 +2,7 @@
 .idea
 #Project
 db_data/
+.DS_Store
 
 www/Public/node_modules/
 www/Public/package-lock.json
