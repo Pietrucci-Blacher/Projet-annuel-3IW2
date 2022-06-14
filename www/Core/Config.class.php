@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Core;
 
-class ConfigController
+class Config
 {
     private array $settings = [];
     private static $_instance;
@@ -10,7 +10,7 @@ class ConfigController
     public static function getInstance()
     {
         if (is_null(self::$_instance)) {
-            self::$_instance = new ConfigController();
+            self::$_instance = new Config();
         }
         return self::$_instance;
     }
