@@ -3,7 +3,7 @@
 <head>
     <?php include("includes/head.view.php") ?>
 </head>
-<body>
+<body class="">
 
 <?php include $this->view.".view.php";?>
 

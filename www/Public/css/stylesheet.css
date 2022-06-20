@@ -6,16 +6,57 @@
   border: 1px solid red;
 }
 
-.register {
-  border: 1px solid red;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
+.inputText {
+  padding: 10px 15px;
+  margin: 10px 0;
+  border-radius: 7px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border: 1px solid gray;
+  width: 100%;
 }
 
+.inputText::-moz-placeholder {
+  font-size: 12px;
+}
+
+.inputText:-ms-input-placeholder {
+  font-size: 12px;
+}
+
+.inputText::placeholder {
+  font-size: 12px;
+}
+
+.btn {
+  padding: 10px 15px;
+  width: 100%;
+  border-radius: 7px;
+  text-align: center;
+  color: white;
+  margin: 10px 0;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn--blue {
+  background-color: #4896FF;
+}
+
+.btn--blue:hover {
+  background-color: #6dacff;
+}
+
+.register,
 .login {
-  border: 1px solid red;
+  height: 100vh;
+}
+
+.register__container,
+.login__container {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background: white;
+  border-radius: 10px;
+  padding: 50px;
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;

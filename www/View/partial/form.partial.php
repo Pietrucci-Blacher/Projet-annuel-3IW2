@@ -32,10 +32,10 @@
 
         <?php else : ?>
 
-            <input name="<?= $name ?>" id="<?= $input["id"] ?>" type="<?= $input["type"] ?>" class="<?= $input["class"] ?>" <?= (!empty($input["placeholder"])) ? 'placeholder="' . $input["placeholder"] . '"' : '' ?> <?= (!empty($input["required"])) ? 'required="required"' : '' ?>>
+            <input name="<?= $name ?>" id="<?= $input["id"] ?>" type="<?= $input["type"] ?>" class="<?= $input["class"] ?> inputText" <?= (!empty($input["placeholder"])) ? 'placeholder="' . $input["placeholder"] . '"' : '' ?> <?= (!empty($input["required"])) ? 'required="required"' : '' ?>>
 
         <?php endif; ?>
         <br>
     <?php endforeach; ?>
-    <input type="submit" value="<?= $config["config"]["submit"] ?? "Valider" ?>">
+    <input type="submit" value="<?= $config["config"]["submit"] ?? "Valider" ?>" class="btn btn--blue">
 </form>

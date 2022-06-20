@@ -6,7 +6,7 @@
 
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: "Sora";
 }
 
 @media screen and (min-width: 540px) {
@@ -155,5 +155,10 @@ body {
 
 .text-center {
   text-align: center;
+}
+
+.bg-login {
+  background: #ffafbd;
+  background: linear-gradient(202deg, #ffafbd 0%, #ffc3a0 100%);
 }
 
