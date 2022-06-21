@@ -29,9 +29,7 @@ class SecurityController
                 $hash_password_db = $data["password"];
 
                 if(password_verify($password, $hash_password_db)) {
-
                     $_SESSION["token"] = $token;
-
                     header('location: /');
                 } else {
                     return "password invalid";
@@ -56,7 +54,6 @@ class SecurityController
                 $user->setFirstname($_POST["firstname"]);
                 $user->generateToken();
                 $user->save();
-                
                 header('location: /login');
 
                     

@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Template de back</title>
-    <meta name="description" content="ceci est la description de ma page">
-    <link rel="stylesheet" href="../Public/css/framework.css">
-    <link rel="stylesheet" href="../Public/css/stylesheet.css">
+    <?php include("includes/head.view.php") ?>
 </head>
-<body>
+<body class="">
 
 <?php include $this->view.".view.php";?>
 

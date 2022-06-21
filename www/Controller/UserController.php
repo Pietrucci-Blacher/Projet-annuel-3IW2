@@ -35,6 +35,7 @@ class UserController {
                 $user->setPassword($_POST["password"]);
                 $user->setLastname($_POST["lastname"]);
                 $user->setFirstname($_POST["firstname"]);
+                $user->generateToken();
                 $user->save();
             }
         }

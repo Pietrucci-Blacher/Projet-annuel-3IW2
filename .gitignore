@@ -1,8 +1,13 @@
 #Jetbrains
 .idea
+
+#MacOS
+.DS_Store
+
 #Project
 db_data/
 .DS_Store
 
+#NodeJs
 www/Public/node_modules/
 www/Public/package-lock.json
