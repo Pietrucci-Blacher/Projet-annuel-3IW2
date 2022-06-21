@@ -10,10 +10,12 @@ function myAutoloader($class){
     //$class = Core\CleanWords
     $class = str_ireplace("\\", "/", $class);
     //$class = Core/CleanWords
-    if(file_exists($class.".class.php")){
-        include $class.".class.php";
+    if(file_exists($class.".php")){
+        include $class.".php";
     }
 }
+
+session_start();
 
 spl_autoload_register("App\myAutoloader");
 
@@ -38,13 +40,13 @@ $action = strtolower($routes[$uri]["action"]);
 // $controller = User ou $controller = Global
 // $action = login ou $action = logout ou $action = home
 
-$controllerFile = "Controller/".$controller.".class.php";
+$controllerFile = "Controller/".$controller."Controller.php";
 if(!file_exists($controllerFile)){
     die("Le controller ".$controllerFile." n'existe pas");
 }
 include $controllerFile;
 
-$controller = "App\\Controller\\".$controller;
+$controller = "App\\Controller\\".$controller."Controller";
 if( !class_exists($controller) ){
    die("La classe ".$controller." n'existe pas");
 }
