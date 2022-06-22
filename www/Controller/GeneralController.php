@@ -3,20 +3,13 @@
 namespace App\Controller;
 
 use App\Core\View;
-use App\Core\JWT\JWT;
 
 class GeneralController {
 
-    public function home()
+    public function home(): View
     {
-        echo "Welcome";
+        return new View('homepage');
         
     }
 
-    public function contact()
-    {
-        $view = new View("contact");
-    }
 }
-
-?>

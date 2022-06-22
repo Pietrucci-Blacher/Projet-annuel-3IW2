@@ -1,9 +1,9 @@
 <?php
 namespace App\Model;
 
-use App\Core\BaseSQL;
+use App\Core\Database;
 
-class User extends BaseSQL
+class User extends Database
 {
 
     protected $id = null;

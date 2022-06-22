@@ -5,8 +5,8 @@
 .DS_Store
 
 #Project
-db_data/
+db_data/*
 
 #NodeJs
-www/Public/node_modules/
+www/Public/node_modules/*
 www/Public/package-lock.json

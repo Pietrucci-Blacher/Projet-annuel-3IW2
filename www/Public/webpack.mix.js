@@ -23,7 +23,6 @@ mix.setPublicPath('css');
 // mix.minify('../web/dist/main.js');
 
 mix.sass('scss/main.scss', 'css/stylesheet.css');
-mix.sass('scss/framework.scss', 'css/framework.css');
 
 module.exports = {
   //...

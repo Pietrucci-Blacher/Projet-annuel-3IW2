@@ -6,9 +6,7 @@
 </head>
 
 <body>
-
     <?php include $this->view . ".view.php"; ?>
-
 </body>
 
 </html>
