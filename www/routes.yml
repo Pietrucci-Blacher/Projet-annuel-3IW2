@@ -2,6 +2,10 @@
   controller: general
   action: home
 
+/sitemap:
+  controller: sitemap
+  action: display
+
 /me-contacter:
   controller: general
   action: contact

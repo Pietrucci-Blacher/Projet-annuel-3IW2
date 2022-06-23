@@ -1,5 +1,8 @@
 RewriteEngine on
 
+RewriteRule  ^robots\.txt$ /robots [NC,L]
+RewriteRule ^sitemap\.xml$ sitemap [L]
+
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 
