@@ -5,9 +5,14 @@ namespace App\Core;
 class Config
 {
     private array $settings = [];
-    private static $_instance;
+    private static Config $_instance;
 
-    public static function getInstance()
+    private function __construct()  // private constructor
+    {
+        $this->settings = $this->getConfigfromFile();
+    }
+
+    public static function getInstance(): Config
     {
         if (is_null(self::$_instance)) {
             self::$_instance = new Config();
@@ -15,14 +20,9 @@ class Config
         return self::$_instance;
     }
 
-    function getConfigfromIni(): bool|array
+   public function getConfigfromFile(): bool|array
     {
-        return parse_ini_file('app.ini');
-    }
-
-    private function __construct()  // private constructor
-    {
-        $this->settings = $this->getConfigfromIni();
+        return require('config.php');
     }
 
     public function get($key)

@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-// use App\Core\BaseSQL;
 use App\Core\Validator;
 use App\Core\View;
 use App\Model\User as UserModel;

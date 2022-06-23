@@ -2,28 +2,23 @@
   controller: general
   action: home
 
-/me-contacter:
-  controller: general
-  action: contact
-
 /login:
-  controller: security
+  controller: general
   action: login
 
 /logout:
-  controller: security
+  controller: general
   action: logout
 
 /register:
-  controller: security
+  controller: general
   action: register
 
-/admin:
+/dashboard:
   controller: admin
   action: dashboard
+  roles: ["admin"]
 
-/admin/dashboard:
-  controller: admin
-  action: dashboard
-
-/admin/articles:
+/sitemap:
+  controller: sitemap
+  action: sitemap

@@ -6,7 +6,7 @@ class View
 {
     private $view;
     private $template;
-    private $data = [];
+    private array $data = [];
 
     public function __construct($view, $template = "back")
     {

@@ -23,7 +23,6 @@ class SecurityController
             if(empty($result)){
                 $email = $_POST["email"];
                 $password = $_POST["password"];
-                
                 $data = $user->find(['email' => $email]);
                 $token = $data["token"];
                 $hash_password_db = $data["password"];
@@ -56,9 +55,7 @@ class SecurityController
                 $user->save();
                 header('location: /login');
 
-                    
-                    // TODO send email 
-                    // ..
+
 
             }
         }
@@ -66,7 +63,7 @@ class SecurityController
         $view->assign("user",$user);
     }
 
-    public function logout()
+    public function logout(): void
     {
         unset($_SESSION["token"]);
         header("location: /login");

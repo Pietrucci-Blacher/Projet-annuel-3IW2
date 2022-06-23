@@ -1,18 +1,18 @@
 <?php
 namespace App\Model;
 
-use App\Core\BaseSQL;
+use App\Core\Database;
 
-class User extends BaseSQL
+class User extends Database
 {
 
-    protected $id = null;
-    protected $email;
-    protected $password;
-    protected $firstname;
-    protected $lastname;
-    protected $status = null;
-    protected $token = null;
+    private ?int $id = null;
+    protected mixed $email;
+    protected mixed $password;
+    protected mixed $firstname;
+    protected mixed $lastname;
+    protected ?int $status = null;
+    protected ?string $token = null;
 
     public function __construct()
     {
@@ -39,7 +39,7 @@ class User extends BaseSQL
     /**
      * @param mixed $email
      */
-    public function setEmail($email): void
+    public function setEmail(mixed $email): void
     {
         $this->email = strtolower(trim($email));
     }
@@ -55,7 +55,7 @@ class User extends BaseSQL
     /**
      * @param mixed $password
      */
-    public function setPassword($password): void
+    public function setPassword(mixed $password): void
     {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
@@ -71,7 +71,7 @@ class User extends BaseSQL
     /**
      * @param mixed $firstname
      */
-    public function setFirstname($firstname): void
+    public function setFirstname(mixed $firstname): void
     {
         $this->firstname = ucwords(strtolower(trim($firstname)));
     }
@@ -87,15 +87,15 @@ class User extends BaseSQL
     /**
      * @param mixed $lastname
      */
-    public function setLastname($lastname): void
+    public function setLastname(mixed $lastname): void
     {
         $this->lastname = strtoupper(trim($lastname));
     }
 
     /**
-     * @return null
+     * @return int
      */
-    public function getStatus(): ?int
+    public function getStatus(): int
     {
         return $this->status;
     }
@@ -109,7 +109,7 @@ class User extends BaseSQL
     }
 
     /**
-     * @return null
+     * @return string|null
      */
     public function getToken(): ?string
     {

@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use LanguageController;
+use PDO;
 use PDOStatement;
 
 abstract class Database
@@ -26,7 +27,7 @@ abstract class Database
                 2002 => LanguageController::getTranslate(),
                 default => LanguageController::getTranslate()
             };
-            ErrorHandler::displayError($error);
+            ErrorHandler::displayError((string)$error);
         }
 
         $classExploded = explode("\\", get_called_class());
@@ -88,9 +89,10 @@ abstract class Database
         return $query->fetchAll(\PDO::FETCH_CLASS, $get_class);
     }
 
+
     public function save(): mixed
     {
-        $columns = array_diff_key(gcd
+        $columns = array_diff_key(
             get_object_vars($this),
             get_class_vars(get_class())
         );
@@ -99,13 +101,14 @@ abstract class Database
             implode(',:', array_keys($columns)) . ' ); ');
         $success = $query->execute($columns);
         if ($success) {
-            $searchQuery = $this->pdo->prepare('SELECT * FROM ' . strtolower($this->table) . ' WHERE id=:id');
+            $searchQuery = $this->pdo->prepare('SELECT * FROM ' . strtolower($this->table) . ' WHERE id = :id');
             $lastInsertId = $this->pdo->lastInsertId();
-            $searchQuery->bindParam(':id', $lastInsertId);
+            $searchQuery->bindParam(':id', $lastInsertId, PDO::PARAM_INT);
             $searchQuery->execute();
             return $searchQuery->fetch(\PDO::FETCH_OBJ);
         }
     }
+
 
 
 }

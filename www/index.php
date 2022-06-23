@@ -1,24 +1,12 @@
 <?php
 namespace App;
-
+use App\Core\AutoLoader;
 require "conf.inc.php";
+require "Autoloader.php";
 
-
-function myAutoloader($class){
-    //$class = App\Core\CleanWords
-    $class = str_ireplace("App\\", "", $class);
-    //$class = Core\CleanWords
-    $class = str_ireplace("\\", "/", $class);
-    //$class = Core/CleanWords
-    if(file_exists($class.".php")){
-        include $class.".php";
-    }
-}
+AutoLoader::init();
 
 session_start();
-
-spl_autoload_register("App\myAutoloader");
-
 
 $uri = $_SERVER["REQUEST_URI"];
 
