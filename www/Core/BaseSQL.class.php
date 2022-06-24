@@ -2,7 +2,6 @@
 
 namespace App\Core;
 
-
 abstract class BaseSQL
 {
     private $pdo;
