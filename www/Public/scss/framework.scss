@@ -11,6 +11,10 @@ body {
 	font-family: 'Sora';
 }
 
+a {
+	text-decoration: none;
+}
+
 @each $breakpoint, $value in $breakpoints {
 	@media screen and (min-width: $value) {
 		.container{
@@ -71,4 +75,23 @@ body {
 .bg-login {
     background: rgb(255,175,189);
     background: linear-gradient(202deg, rgba(255,175,189,1) 0%, rgba(255,195,160,1) 100%);
+}
+
+.alert {
+	width: 100%;
+	padding: 15px 25px;
+	border-radius: 10px;
+	font-size: 14px;
+
+	&--danger {
+		background-color: #F8D7DA;
+		color: #721C24;
+		border: 1px solid #F5C6CB;
+	}
+	&--success {
+		background-color: #D4EDDA;
+		color: #155724;
+		border: 1px solid #C3E6CB;
+
+	}
 }

@@ -25,4 +25,10 @@
             background-color: #6dacff;
         }
     }
+    &--alert {
+        background-color: #C82333;
+        &:hover {
+            background-color: #871822;
+        }
+    }
 }

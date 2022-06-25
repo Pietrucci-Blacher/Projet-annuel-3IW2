@@ -25,5 +25,3 @@
 /admin/dashboard:
   controller: admin
   action: dashboard
-
-/admin/articles:

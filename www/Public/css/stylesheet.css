@@ -20,10 +20,6 @@
   font-size: 12px;
 }
 
-.inputText:-ms-input-placeholder {
-  font-size: 12px;
-}
-
 .inputText::placeholder {
   font-size: 12px;
 }
@@ -44,6 +40,14 @@
 
 .btn--blue:hover {
   background-color: #6dacff;
+}
+
+.btn--alert {
+  background-color: #C82333;
+}
+
+.btn--alert:hover {
+  background-color: #871822;
 }
 
 .register,
