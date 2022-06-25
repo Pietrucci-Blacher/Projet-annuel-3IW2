@@ -7,8 +7,7 @@ use App\Core\Validator;
 use App\Core\View;
 use App\Core\Security;
 use App\Core\Helpers;
-
-session_start();
+use App\Core\Session;
 
 class SecurityController
 {
@@ -19,48 +18,74 @@ class SecurityController
         }
 
         $user = new UserModel();
-        if (!empty($_POST)) {
-            $result = Validator::run($user->getFormLogin(), $_POST);
-            print_r($result);
-            if (empty($result)) {
-                $email = $_POST["email"];
-                $password = $_POST["password"];
 
-                $data = $user->find(['email' => $email]);
-                $hash_password_db = $data["password"];
 
-                if (password_verify($password, $hash_password_db)) {
-                    $_SESSION['user'] = $data["token"];
-                    header('location: /admin');
-                } else {
-                    return "password invalid";
-                }
-            }
-        }
         $view = new View("login");
         $view->assign("title", "Espace connexion client - Chiperz");
         $view->assign("user", $user);
+
+
+
+        if (!empty($_POST)) {
+            $errors = [];
+
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+
+            $data = $user->find(['email' => $email]);
+
+            if (!is_null($data)) {
+
+                $hash_password_db = $data["password"];
+
+                if (!password_verify($password, $hash_password_db)) {
+                    $errors[] = "Mail ou mot de passe incorrect";
+                    $view->assign("errors", $errors);
+                } else {
+                    if ($data["status"] == 1) {
+                        Session::add('user', $data);
+                        header('location: /admin/dashboard');
+                    } else {
+                        $errors[] = "Votre compte n'est pas activé";
+                        $view->assign("errors", $errors);
+                    }
+                }
+            } else {
+                $errors[] = "Aucun compte n'est lié à cet email";
+                $view->assign("errors", $errors);
+            }
+        }
     }
 
     public function register()
     {
-
         if (Security::isConnected()) {
             header('location: /admin/dashboard');
         }
-
         $user = new UserModel();
-        // $user->select("esgi_user", ["token"]);
-        // $test = $user->select("esgi_user", ["token"])->where("lastname", "LI")->getQuery();
-        // echo $test;
-        // die();
+        $view = new View("register");
+        $view->assign("user", $user);
 
         if (!empty($_POST)) {
+            $errors = [];
             $result = Validator::run($user->getFormRegister(), $_POST);
             if (empty($result)) {
                 $token = str_shuffle(md5(uniqid()));
 
-                $email = "li.benjamin75@gmail.com";
+                $data = $user->find(['email' => $_POST["email"]]);
+                if (!empty($data)) {
+                    $errors[] = "Cet email est déjà utilisé";
+                    $view->assign("errors", $errors);
+                }
+
+                $user->setEmail($_POST["email"]);
+                $user->setPassword($_POST["password"]);
+                $user->setLastname($_POST["lastname"]);
+                $user->setFirstname($_POST["firstname"]);
+                $user->setToken($token);
+                $user->save();
+
+                $email = $_POST["email"];
                 $from = ['email' => "chiperz.esgi@gmail.com", 'name' => "toto"];
                 $to = ['email' => $email, 'name' => "benjamin"];
                 $subject = 'Chiperz Création de votre compte';
@@ -72,21 +97,27 @@ class SecurityController
                     echo $email["error_message"];
                 }
 
-                // $user->select("esgi_user", ["token"])
+                header('location: /login');
+            } else {
+                $view->assign("errors", $result);
+            }
+        }
 
+        if (!empty($_GET["token"])) {
 
-                $user->setEmail($_POST["email"]);
-                $user->setPassword($_POST["password"]);
-                $user->setLastname($_POST["lastname"]);
-                $user->setFirstname($_POST["firstname"]);
-                $user->setToken($token);
-                $user->save();
+            $sql = $user->select($user->getTable(), ["*"])->where("token", $_GET["token"])->getQuery();
+            $result = $user->fetchQuery($sql);
+            if (empty($result)) {
+                // if token not found, redirect to login
+                header('location: /login');
+            } else {
+                // if token found, set user status to 1 then redirect to login
+                $update = $user->update($user->getTable(), ["status" => 1])->where("id", $result[0]["id"])->getQuery();
+                $user->executeQuery($update);
 
                 header('location: /login');
             }
         }
-        $view = new View("register");
-        $view->assign("user", $user);
     }
 
     public function logout()

@@ -17,6 +17,7 @@ function myAutoloader($class){
 
 spl_autoload_register("App\myAutoloader");
 
+session_start();
 
 $uri = strtok($_SERVER["REQUEST_URI"],'?');
 

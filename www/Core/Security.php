@@ -5,7 +5,7 @@ namespace App\Core;
 class Security
 {
     public static function isConnected(){
-        if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+        if(Session::exist('user')){
             $connected = true;
         }else {
             $connected = false;

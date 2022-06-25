@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use App\Core\Database;
@@ -13,6 +14,7 @@ class User extends Database
     protected $lastname;
     protected $status = null;
     protected $token = null;
+    protected $confirmed;
 
     public function __construct()
     {
@@ -135,57 +137,57 @@ class User extends Database
     public function getFormRegister(): array
     {
         return [
-            "config"=>[
-                "method"=>"POST",
-                "action"=>"",
-                "uploadform"=> "multipart/form-data",
-                "submit"=>"S'inscrire"
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "uploadform" => "multipart/form-data",
+                "submit" => "S'inscrire"
             ],
-            "inputs"=>[
-                "email"=>[
-                    "type"=>"email",
-                    "placeholder"=>"Votre email ...",
-                    "id"=>"emailRegister",
-                    "class"=>"inputRegister",
-                    "required"=>true,
-                    "error"=>"Email incorrect",
-                    "unicity"=>true,
-                    "errorUnicity"=>"Email existe déjà en bdd"
+            "inputs" => [
+                "email" => [
+                    "type" => "email",
+                    "placeholder" => "Votre email ...",
+                    "id" => "emailRegister",
+                    "class" => "inputRegister",
+                    "required" => true,
+                    "error" => "Email incorrect",
+                    "unicity" => true,
+                    "errorUnicity" => "Email existe déjà en bdd"
                 ],
-                "firstname"=>[
-                    "type"=>"text",
-                    "placeholder"=>"Prénom ...",
-                    "id"=>"firstnameRegister",
-                    "class"=>"inputRegister",
-                    "min"=>2,
-                    "max"=>50,
-                    "error"=>"Votre prénom n'est pas correct",
+                "firstname" => [
+                    "type" => "text",
+                    "placeholder" => "Prénom ...",
+                    "id" => "firstnameRegister",
+                    "class" => "inputRegister",
+                    "min" => 2,
+                    "max" => 50,
+                    "error" => "Votre prénom n'est pas correct",
                 ],
-                "lastname"=>[
-                    "type"=>"text",
-                    "placeholder"=>"Nom ...",
-                    "id"=>"lastnameRegister",
-                    "class"=>"inputRegister",
-                    "min"=>2,
-                    "max"=>100,
-                    "error"=>"Votre nom n'est pas correct",
+                "lastname" => [
+                    "type" => "text",
+                    "placeholder" => "Nom ...",
+                    "id" => "lastnameRegister",
+                    "class" => "inputRegister",
+                    "min" => 2,
+                    "max" => 100,
+                    "error" => "Votre nom n'est pas correct",
                 ],
-                "password"=>[
-                    "type"=>"password",
-                    "placeholder"=>"Votre mot de passe ...",
-                    "id"=>"pwdRegister",
-                    "class"=>"inputRegister",
-                    "required"=>true,
-                    "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
+                "password" => [
+                    "type" => "password",
+                    "placeholder" => "Votre mot de passe ...",
+                    "id" => "pwdRegister",
+                    "class" => "inputRegister",
+                    "required" => true,
+                    "error" => "Votre mot de passe doit faire entre 4 et 16 et contenir des chiffres et des lettres",
                 ],
-                "passwordConfirm"=>[
-                    "type"=>"password",
-                    "placeholder"=>"Confirmation ...",
-                    "id"=>"pwdConfirmRegister",
-                    "class"=>"inputRegister",
-                    "required"=>true,
-                    "confirm"=>"password",
-                    "error"=>"Votre mot de passe de confirmation ne correspond pas",
+                "passwordConfirm" => [
+                    "type" => "password",
+                    "placeholder" => "Confirmation ...",
+                    "id" => "pwdConfirmRegister",
+                    "class" => "inputRegister",
+                    "required" => true,
+                    "confirm" => "password",
+                    "error" => "Votre mot de passe de confirmation ne correspond pas",
                 ],
                 // "captcha"=>[
                 //     "type" => "",
@@ -200,25 +202,25 @@ class User extends Database
     public function getFormLogin(): array
     {
         return [
-            "config"=>[
-                "method"=>"POST",
-                "action"=>"",
-                "submit"=>"Se connecter"
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "submit" => "Se connecter"
             ],
-            "inputs"=>[
-                "email"=>[
-                    "type"=>"email",
-                    "placeholder"=>"Votre email ...",
-                    "id"=>"emailRegister",
-                    "class"=>"inputRegister",
-                    "required"=>true,
+            "inputs" => [
+                "email" => [
+                    "type" => "email",
+                    "placeholder" => "Votre email ...",
+                    "id" => "emailRegister",
+                    "class" => "inputRegister",
+                    "required" => true,
                 ],
-                "password"=>[
-                    "type"=>"password",
-                    "placeholder"=>"Votre mot de passe ...",
-                    "id"=>"pwdRegister",
-                    "class"=>"inputRegister",
-                    "required"=>true,
+                "password" => [
+                    "type" => "password",
+                    "placeholder" => "Votre mot de passe ...",
+                    "id" => "pwdRegister",
+                    "class" => "inputRegister",
+                    "required" => true,
                 ]
             ]
 
