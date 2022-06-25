@@ -1,9 +1,9 @@
 <?php
 namespace App\Models;
 
-use App\Core\BaseSQL;
+use App\Core\Database;
 
-class User extends BaseSQL
+class User extends Database
 {
 
     protected $id = null;
@@ -120,9 +120,9 @@ class User extends BaseSQL
      * @param null
      * Token char 32
      */
-    public function generateToken(): void
+    public function setToken($token): void
     {
-        $this->token = str_shuffle(md5(uniqid()));
+        $this->token = $token;
     }
 
 

@@ -2,7 +2,9 @@
 
 namespace App\Core;
 
-abstract class BaseSQL
+use App\Core\MysqlBuilder;
+
+class Database extends MysqlBuilder
 {
     private $pdo;
     private $table;
