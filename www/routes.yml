@@ -10,6 +10,10 @@
   controller: security
   action: login
 
+/forgot-password:
+  controller: security
+  action: resetPassword
+
 /logout:
   controller: security
   action: logout

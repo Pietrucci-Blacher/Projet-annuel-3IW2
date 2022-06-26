@@ -12,6 +12,10 @@ class AdminController
     public function dashboard()
     {
 
+        if(!Session::get('user')) {
+            header('Location: /login');
+        }
+
         $user = new UserModel();
         $user = $user->find(['token' => Session::get('user')["token"]]);
 

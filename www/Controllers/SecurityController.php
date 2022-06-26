@@ -20,7 +20,7 @@ class SecurityController
         $user = new UserModel();
 
 
-        $view = new View("login");
+        $view = new View("auth/login");
         $view->assign("title", "Espace connexion client - Chiperz");
         $view->assign("user", $user);
 
@@ -63,7 +63,7 @@ class SecurityController
             header('location: /admin/dashboard');
         }
         $user = new UserModel();
-        $view = new View("register");
+        $view = new View("auth/register");
         $view->assign("user", $user);
 
         if (!empty($_POST)) {
@@ -118,6 +118,41 @@ class SecurityController
                 header('location: /login');
             }
         }
+    }
+
+    public function resetPassword() {
+        $user = new UserModel();
+        $view = new View("auth/forgotPassword");
+        $view->assign("user", $user);
+        
+        $view->assign("emailSent", false);
+
+        if(!empty($_POST) && empty($_GET)) {
+            $errors = [];
+            $result = Validator::run($user->getFormResetPassword(), $_POST);
+            var_dump($result);
+            die();
+            if(empty($result)) {
+                $data = $user->find(['email' => $_POST["email"]]);
+                if(!empty($data)) {
+                    $token = str_shuffle(md5(uniqid()));
+                    $update = $user->update($user->getTable(), ["reset_token" => $token])->where("id", $data["id"])->getQuery();
+                    $user->executeQuery($update);
+                    $view->assign("emailSentMsg", "Un email vous a été envoyé");
+                    
+                    
+                } else {
+                    $errors[] = "Aucun compte n'est lié à cet email";
+                    $view->assign("errors", $result);
+                }
+            }
+
+        }
+
+
+
+        
+
     }
 
     public function logout()
