@@ -5,10 +5,8 @@
     <?php include("includes/head.view.php") ?>
 </head>
 
-<body>
-
+<body class="d-flex">
     <?php include $this->view . ".view.php"; ?>
-
 </body>
 
 </html>

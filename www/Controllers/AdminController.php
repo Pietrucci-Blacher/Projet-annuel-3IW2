@@ -3,24 +3,24 @@
 namespace App\Controller;
 
 use App\Core\View;
-use App\Models\User as UserModel;
-use App\Core\Session;
-
+use App\Model\Media as MediaModel;
 
 class AdminController
 {
     public function dashboard()
     {
-
-        $user = new UserModel();
-        $user = $user->find(['token' => Session::get('user')["token"]]);
-
-        $firstname = $user["firstname"];
-        $lastname = $user["lastname"];
+        $firstname = "Yves";
+        $lastname = "SKRZYPCZYK";
 
         $view = new View("dashboard", "back");
         $view->assign("firstname", $firstname);
         $view->assign("lastname", $lastname);
 
+    }
+    public function medias(){
+        $medias = new MediaModel();
+        $mediaList = $medias->findAll([],[],true);
+        $mediasView = new View("medias");
+        $mediasView->assign("medias",$mediaList);
     }
 }
