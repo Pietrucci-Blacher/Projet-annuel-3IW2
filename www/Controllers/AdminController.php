@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Core\View;
-use App\Model\Media as MediaModel;
+use App\Models\Media as MediaModel;
 
 class AdminController
 {

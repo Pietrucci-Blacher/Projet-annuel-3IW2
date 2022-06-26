@@ -3,7 +3,7 @@
 <head>
     <?php include("includes/head.view.php") ?>
 </head>
-<body class="">
+<body class="d-flex">
 
 <?php include $this->view.".view.php";?>
 
