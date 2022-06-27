@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Core\View;
 use App\Models\Media as MediaModel;
+use App\Models\Article as ArticleModel;
 
 class AdminController
 {
@@ -22,5 +23,12 @@ class AdminController
         $mediaList = $medias->findAll([],[],true);
         $mediasView = new View("medias");
         $mediasView->assign("medias",$mediaList);
+    }
+
+    public function articles(){
+        $articles = new ArticleModel();
+        $articleList = $articles->findAll([],[],true);
+        $articlesView = new View("articles");
+        $articlesView->assign("articles",$articleList);
     }
 }

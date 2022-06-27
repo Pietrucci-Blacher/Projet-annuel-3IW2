@@ -33,3 +33,7 @@
 /medias:
   controller: admin
   action: medias
+
+/articles:
+  controller: admin
+  action: articles
