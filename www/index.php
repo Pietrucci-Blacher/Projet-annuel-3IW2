@@ -1,36 +1,33 @@
 <?php
 namespace App;
+use App\Core\AutoLoader;
+use App\Core\Router;
+use App\Core\Config;
 
-require "conf.inc.php";
-
-
-function myAutoloader($class){
-    //$class = App\Core\CleanWords
-    $class = str_ireplace("App\\", "", $class);
-    //$class = Core\CleanWords
-    $class = str_ireplace("\\", "/", $class);
-    //$class = Core/CleanWords
-    if(file_exists($class.".php")){
-        include $class.".php";
-    }
-}
-
-spl_autoload_register("App\myAutoloader");
+require "Core/AutoLoader.php";
+ini_set('display_errors', 1);
+AutoLoader::init();
 
 session_start();
 
-$uri = strtok($_SERVER["REQUEST_URI"],'?');
+echo 'ok';
 
-$routeFile = "routes.yml";
-if(!file_exists($routeFile)){
-    die("Le fichier ".$routeFile." n'existe pas");
+$uri = $_SERVER["REQUEST_URI"];
+
+
+if(Config::getInstance()->get("debug")) {
+    ini_set('display_errors', 1);
+}else{
+    ini_set('display_errors', 0);
 }
 
-$routes = yaml_parse_file($routeFile);
+$router = new Router($uri);
+
+//$routes = yaml_parse_file($routeFile);
 
 
 if( empty($routes[$uri]) || empty($routes[$uri]["controller"])  || empty($routes[$uri]["action"]) ){
-    die("Page 404");
+        die("Page 404");
 }
 
 $controller = ucfirst(strtolower($routes[$uri]["controller"]));
@@ -39,7 +36,7 @@ $action = strtolower($routes[$uri]["action"]);
 // $controller = User ou $controller = Global
 // $action = login ou $action = logout ou $action = home
 
-$controllerFile = "Controllers/".$controller."Controller.php";
+$controllerFile = "Controller/".$controller."Controller.php";
 if(!file_exists($controllerFile)){
     die("Le controller ".$controllerFile." n'existe pas");
 }

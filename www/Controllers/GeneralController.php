@@ -4,17 +4,16 @@ namespace App\Controller;
 
 use App\Core\View;
 
-class GeneralController{
+class GeneralController {
 
-    public function home()
+    public function home(): View
     {
-        echo "Welcome";
+        return new View('homepage');
     }
 
-    public function contact()
+    public function error(): View
     {
-        $view = new View("contact");
+        return new View('error');
     }
+
 }
-
-

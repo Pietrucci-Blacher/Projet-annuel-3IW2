@@ -6,9 +6,9 @@ class View
 {
     private $view;
     private $template;
-    private $data = [];
+    private array $data = [];
 
-    public function __construct($view, $template = "back")
+    public function __construct($view, $template = "front")
     {
         $this->setView($view);
         $this->setTemplate($template);
@@ -31,11 +31,11 @@ class View
 
     public function includePartial($name, $config):void
     {
-        if(!file_exists("views/partial/".$name.".partial.php"))
+        if(!file_exists("View/partial/".$name.".partial.php"))
         {
             die("partial ".$name." 404");
         }
-        include "views/partial/".$name.".partial.php";
+        include "View/partial/".$name.".partial.php";
     }
 
     public function setTitle($title):void{
@@ -44,9 +44,8 @@ class View
 
     public function __destruct()
     {
-        //Array ( [firstname] => Yves )
         extract($this->data);
-        include "views/".$this->template.".tpl.php";
+        include "View/".$this->template.".tpl.php";
     }
 
 }

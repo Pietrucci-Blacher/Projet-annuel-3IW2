@@ -2,10 +2,6 @@
   controller: general
   action: home
 
-/me-contacter:
-  controller: general
-  action: contact
-
 /login:
   controller: security
   action: login
@@ -18,10 +14,20 @@
   controller: security
   action: register
 
-/admin:
+/dashboard:
   controller: admin
   action: dashboard
+  roles: ["admin"]
 
-/admin/dashboard:
+/dashboard/users:
   controller: admin
-  action: dashboard
+  action: users
+  roles: ["admin"]
+
+/sitemap:
+  controller: seo
+  action: displaySitemap
+
+/robots:
+  controller: seo
+  action: displayRobots
