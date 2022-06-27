@@ -1,4 +1,4 @@
-?php
+<?php
 
 namespace App\Core;
 
@@ -9,7 +9,8 @@ class Router
     private string $uri;
     private string $controller;
     private string $action;
-    private string $role;
+    private array $role;
+    public string $error;
 
 
 
@@ -20,15 +21,16 @@ class Router
             if(!empty($this->routes[$this->uri]) && !empty($this->routes[$this->uri]["controller"]) && !empty($this->routes[$this->uri]["action"])){
                 $this->controller = $this->routes[$this->uri]['controller'];
                 $this->action = $this->routes[$this->uri]['action'];
-                $this->role = $this->routes[$this->uri]['role'];
+                $this->role = $this->routes[$this->uri]['roles'];
+                $this->checkRoute();
             }
         }else{
-            die('Routes file' . self::ROUTE_FILE . ' not found');
+            //Appel au Controller de Error
         }
 
     }
 
-   //Getter
+    //Getter
     public function getController(): string
     {
         return $this->controller;
@@ -58,5 +60,29 @@ class Router
     public function getAllRoutes(): array
     {
         return yaml_parse_file('routes.yml');
+    }
+
+    public function checkRoute()
+    {
+        $current_controller = "Controllers" . ucfirst(strtolower($this->getController())). "Controller.php";
+        if(file_exists($current_controller)){
+            include $current_controller;
+            $controller_class = "App\\Controllers\\" . $current_controller;
+            if(class_exists($controller_class)){
+                $classObj = new $controller_class();
+                if(method_exists($classObj, $this->getAction())){
+                    //Vérification du role
+                    Security::Authorization($this->getRole());
+                    //Vérification du setup ici
+                    $classObj->{$this->getAction()}();
+                }else{
+                    //Controller Erreur
+                }
+            }else{
+                //Controller Erreur
+            }
+        }else{
+            //Controller Erreur
+        }
     }
 }

@@ -12,4 +12,9 @@ class Security
         }
         return $connected;
     }
+
+    public static function Authorization(string $getRole)
+    {
+        //Check if user is authorized
+    }
 }

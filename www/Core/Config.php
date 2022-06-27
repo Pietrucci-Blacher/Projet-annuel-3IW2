@@ -4,7 +4,7 @@ namespace App\Core;
 
 class Config
 {
-    private static Config $_instance;
+    private static $_instance;
     private $settings = [];
 
     private function __construct()  // private constructor
@@ -12,7 +12,7 @@ class Config
         $this->settings = $this->getConfigfromFile();
     }
 
-    public static function getInstance(): Config
+    public static function getInstance()
     {
         if (is_null(self::$_instance)) {
             self::$_instance = new Config();
@@ -20,7 +20,7 @@ class Config
         return self::$_instance;
     }
 
-   public function getConfigfromFile(): bool|array
+    public function getConfigfromFile()
     {
         return require('config.php');
     }
@@ -34,5 +34,4 @@ class Config
         }
         return null;
     }
-
 }
