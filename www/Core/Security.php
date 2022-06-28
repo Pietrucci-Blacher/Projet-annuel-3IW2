@@ -4,7 +4,8 @@ namespace App\Core;
 
 class Security
 {
-    public static function isConnected(){
+    public static function isConnected(): bool
+    {
         if(Session::exist('user')){
             $connected = true;
         }else {
@@ -13,7 +14,7 @@ class Security
         return $connected;
     }
 
-    public static function Authorization(string $getRole)
+    public static function Authorization(array $getRole)
     {
         //Check if user is authorized
     }

@@ -6,14 +6,10 @@ use App\Core\View;
 
 class GeneralController {
 
-    public function home(): View
+    public function home():void
     {
-        return new View('homepage');
-    }
-
-    public function error(): View
-    {
-        return new View('error');
+        $view = new View('homepage');
+        $view->setTitle('Page d\'accueil');
     }
 
 }

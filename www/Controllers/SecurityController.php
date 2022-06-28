@@ -21,7 +21,7 @@ class SecurityController
 
 
         $view = new View("login");
-        $view->assign("title", "Espace connexion client - Chiperz");
+        $view->setTitle("Espace connexion client");
         $view->assign("user", $user);
 
 
@@ -64,6 +64,7 @@ class SecurityController
         }
         $user = new UserModel();
         $view = new View("register");
+        $view->setTitle("Espace inscription client");
         $view->assign("user", $user);
 
         if (!empty($_POST)) {
@@ -89,7 +90,7 @@ class SecurityController
                 $from = ['email' => "chiperz.esgi@gmail.com", 'name' => "toto"];
                 $to = ['email' => $email, 'name' => "benjamin"];
                 $subject = 'Chiperz Création de votre compte';
-                $link = 'http://' . $_SERVER['HTTP_HOST'];
+                $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
                 $confirm_link = $link . '/register?token=' . $token;
 
                 $email = Helpers::mailer($from, $to, $subject, ['[appname]', '[firstname]', '[email]', '[link]', '[confirm_link]'], ["Chiperz", ucfirst("benjamin"), $to['email'], $link, $confirm_link], true, 'registered');
@@ -107,16 +108,12 @@ class SecurityController
 
             $sql = $user->select($user->getTable(), ["*"])->where("token", $_GET["token"])->getQuery();
             $result = $user->fetchQuery($sql);
-            if (empty($result)) {
-                // if token not found, redirect to login
-                header('location: /login');
-            } else {
+            if (!empty($result)) {
                 // if token found, set user status to 1 then redirect to login
                 $update = $user->update($user->getTable(), ["status" => 1])->where("id", $result[0]["id"])->getQuery();
                 $user->executeQuery($update);
-
-                header('location: /login');
             }
+            header('location: /login');
         }
     }
 

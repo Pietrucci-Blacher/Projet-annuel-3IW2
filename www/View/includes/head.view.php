@@ -1,7 +1,7 @@
 <!-- General Meta tags -->
 <meta charset='UTF-8'>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name='description' content='<?php \App\Core\Config::getInstance('description')?>'>
+<meta name='description' content='<?= \App\Core\Config::getInstance()->get('description')?>'>
 <meta name="robots" content="index,follow">
 <meta name="googlebot" content="index,follow">
 <base href="<?php echo (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/' ?>">
@@ -32,7 +32,7 @@
 <link rel="mask-icon" href="https://png.pngitem.com/pimgs/s/49-497482_random-cartoon-png-transparent-png.png" color="blue">
 
 <!--Apple tags -->
-<meta name="apple-mobile-web-app-title" content="Chiperz">
+<meta name="apple-mobile-web-app-title" content="<?= \App\Core\Config::getInstance()->get('name')?>">
 
 <?php include('script.view.php'); ?>
 

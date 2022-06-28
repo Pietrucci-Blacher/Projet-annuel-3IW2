@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Core\Security;
+
 class Router
 {
     public const ROUTE_FILE = 'routes.yml';
@@ -42,7 +44,7 @@ class Router
         return $this->action;
     }
     //Getter
-    public function getRole(): string
+    public function getRole(): array
     {
         return $this->role;
     }
@@ -64,17 +66,18 @@ class Router
 
     public function checkRoute()
     {
-        $current_controller = "Controllers" . ucfirst(strtolower($this->getController())). "Controller.php";
+        $current_controller = "Controllers/" . ucfirst(strtolower($this->getController())). "Controller.php";
         if(file_exists($current_controller)){
             include $current_controller;
-            $controller_class = "App\\Controllers\\" . $current_controller;
+            $controller_class = "App\\Controller\\" . ucfirst($this->getController()) . "Controller";
             if(class_exists($controller_class)){
                 $classObj = new $controller_class();
                 if(method_exists($classObj, $this->getAction())){
+                    $execAction = $this->getAction();
                     //Vérification du role
                     Security::Authorization($this->getRole());
                     //Vérification du setup ici
-                    $classObj->{$this->getAction()}();
+                    $classObj->$execAction();
                 }else{
                     //Controller Erreur
                 }

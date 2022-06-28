@@ -37,7 +37,7 @@ class Helpers
         // $message = str_replace(
         // 	$template_params,
         // 	$template_replace,
-        // 	file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/Views/Emails/' . $body_template . '.php')
+        // 	file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/View/Emails/' . $body_template . '.php')
         // );
         // $mail->msgHTML($message);
 

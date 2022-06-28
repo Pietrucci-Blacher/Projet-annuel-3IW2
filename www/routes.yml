@@ -1,18 +1,22 @@
 /:
   controller: general
   action: home
+  roles: []
 
 /login:
   controller: security
   action: login
+  roles: []
 
 /logout:
   controller: security
   action: logout
+  roles: []
 
 /register:
   controller: security
   action: register
+  roles: []
 
 /dashboard:
   controller: admin
@@ -27,7 +31,9 @@
 /sitemap:
   controller: seo
   action: displaySitemap
+  roles: []
 
 /robots:
   controller: seo
   action: displayRobots
+  roles: []
