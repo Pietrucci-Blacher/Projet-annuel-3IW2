@@ -30,10 +30,18 @@
   controller: admin
   action: dashboard
 
-/medias:
+/dashboard/medias:
   controller: admin
   action: medias
 
-/articles:
+/dashboard/articles:
   controller: admin
   action: articles
+
+/dashboard/users:
+  controller: admin
+  action: users
+
+/dashboard/see:
+  controller: admin
+  action: see

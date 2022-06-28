@@ -22,11 +22,18 @@ class Article extends Database
     /**
      * @return int|null
      */
+    public function getArticleId(): ?int
+    {
+        return $this->article_id;
+    }
+
+    /**
+     * @return int|null
+     */
     public function getUserId(): ?int
     {
         return $this->user_id;
     }
-
 
     /**
      * @return mixed
@@ -132,5 +139,40 @@ class Article extends Database
     public function save()
     {
         parent::save();
+    }
+
+    public function getFormArticle(): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "uploadform" => "multipart/form-data",
+                "submit" => "Ajouter l'article"
+            ],
+            "inputs" => [
+                "title" => [
+                    "type" => "text",
+                    "placeholder" => "Titre ...",
+                    "id" => "titleArticle",
+                    "class" => "inputTitleAticle",
+                    "required" => true,
+                    "min" => 2,
+                    "max" => 50,
+                    "error" => "erreur sur le titre",
+                ],
+                "description" => [
+                  "type" => "text",
+                  "placeholder" => "Description ...",
+                  "id" => "DescriptionArticle",
+                  "class" => "inputDescriptioniAticle",
+                  "required" => true,
+                  "min" => 2,
+                  "max" => 50,
+                  "error" => "erreur sur la description",
+                ],
+
+            ],
+        ];
     }
 }

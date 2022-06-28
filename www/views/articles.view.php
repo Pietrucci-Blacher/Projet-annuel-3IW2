@@ -33,7 +33,7 @@
                 <td><?= $article->getLikes() ?></td>
                 <td><?= $article->getDate() ?></td>
                 <td>
-                    <a href="#">Voir |</a>
+                    <a href="see?<?= $article->getArticleId() ?>">Voir |</a>
                     <a href="#">Modifier |</a>
                     <a href="#">Supprimer</a>
                 </td>
