@@ -2,7 +2,9 @@
 
 namespace App\Core;
 
+use App\Controller\SetupController;
 use App\Core\Security;
+use App\Core\ErrorHandler;
 
 class Router
 {
@@ -77,6 +79,11 @@ class Router
                     //Vérification du role
                     Security::Authorization($this->getRole());
                     //Vérification du setup ici
+                    if(!SetupController::isSetup()){
+                        header('location: /setup');
+                        exit();
+                    }
+
                     $classObj->$execAction();
                 }else{
                     //Controller Erreur

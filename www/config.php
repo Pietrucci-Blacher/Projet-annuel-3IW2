@@ -2,29 +2,30 @@
 
 return [
     'database' => [
-        'dbname' => 'chiperz',
-        'dbuser' => 'admin59789',
-        'dbpwd' => '14LNhCcIl7XlafU1',
-        'dbdriver' => 'mysql',
-        'dbport' => '3306',
-        'dbhost' => 'localhost',
-        'dbprefixe' => 'chiperz_'
-    ],
-    'captcha' => [
-        'sitekey' => '10000000-ffff-ffff-ffff-000000000001',
+        'db_name' => 'chiperz',
+        'db_user' => 'admin59789',
+        'db_pwd' => '14LNhCcIl7XlafU1',
+        'db_driver' => 'mysql',
+        'db_port' => '3306',
+        'db_host' => 'localhost',
+        'db_prefix' => 'chiperz_'
     ],
     'app' => [
-        'name' => 'Chiperz',
-        'description' => 'Ma mega application',
-        'routing' => 'routes.yml',
-        'setup' => false,
-        'forbiddenCrawl' => [
+        'app_name' => 'Chiperz',
+        'app_description' => 'Ma mega application',
+        'app_routing' => 'routes.yml',
+        'app_setup' => false,
+        'app_forbiddenCrawl' => [
             '/public/',
             '/setup/',
             '/admin/'
         ]
     ],
-    'developpement'=> [
-        'debug' => true,
+    'sites_key' => [
+        'yandex-verification' => 'yandex-verification',
+        'p:domain_verify' => 'p:domain_verify',
+    ],
+    'development'=> [
+        'dev_debug' => true,
     ],
 ];

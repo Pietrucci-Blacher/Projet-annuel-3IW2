@@ -1,14 +1,14 @@
 <!-- General Meta tags -->
 <meta charset='UTF-8'>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name='description' content='<?= \App\Core\Config::getInstance()->get('description')?>'>
+<meta name='description' content='<?= \App\Core\Config::getInstance()->get('app_description')?>'>
 <meta name="robots" content="index,follow">
 <meta name="googlebot" content="index,follow">
 <base href="<?php echo (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/' ?>">
-<meta name="authors" content="Maxime Pietrucci-Blacher">
+<meta name="authors" content="Maxime Pietrucci-Blacher , Chemseddine Ameziane, Benjamin Li">
 
 <!-- App meta tags -->
-<meta name="application-name" content="Application Name">
+<meta name="application-name" content="<?= \App\Core\Config::getInstance()->get('app_name')?>">
 <meta name="rating" content="General">
 <meta name="subject" content="your document's subject">
 <link rel="manifest" href="manifest.json">
@@ -32,7 +32,7 @@
 <link rel="mask-icon" href="https://png.pngitem.com/pimgs/s/49-497482_random-cartoon-png-transparent-png.png" color="blue">
 
 <!--Apple tags -->
-<meta name="apple-mobile-web-app-title" content="<?= \App\Core\Config::getInstance()->get('name')?>">
+<meta name="apple-mobile-web-app-title" content="<?= \App\Core\Config::getInstance()->get('app_name')?>">
 
 <?php include('script.view.php'); ?>
 

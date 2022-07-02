@@ -2,7 +2,7 @@
 <html lang="fr">
 
 <head>
-    <title><?= $this->title ?? \App\Core\Config::getInstance()->get('name') ?></title>
+    <title><?= $this->title ?? \App\Core\Config::getInstance()->get('app_name') ?></title>
     <?php include(__DIR__ . '/../includes/head.view.php') ?>
 </head>
 <body>

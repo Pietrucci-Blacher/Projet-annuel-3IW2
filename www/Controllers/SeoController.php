@@ -7,7 +7,7 @@ class SeoController{
     public function displayRobots(): void
     {
         $view = new View('robots', 'blank');
-        $view->assign('forbiddenCrawlUrls', Config::getInstance()->get('forbiddenCrawl'));
+        $view->assign('forbiddenCrawlUrls', Config::getInstance()->get('app_forbiddenCrawl'));
     }
 
     public function displaySitemap(): void
