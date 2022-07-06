@@ -26,12 +26,29 @@ class AdminController
         $mediasView->assign("medias",$mediaList);
     }
 
+    public function newMedia(){
+        $media = new MediaModel();
+        $mediasView = new View("new-media");
+        $mediasView->assign("media",$media);
+
+    }
+
     public function articles(){
         $articles = new ArticleModel();
         $articleList = $articles->findAll([],[],true);
         $articlesView = new View("articles");
         $articlesView->assign("articles",$articleList);
+
+        print_r($_POST);
     }
+
+    public function newArticle(){
+        $article = new ArticleModel();
+        $articlesView = new View("new-article");
+        $articlesView->assign("article",$article);
+
+    }
+
 
     public function users(){
         $users = new UserModel();

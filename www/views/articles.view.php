@@ -10,7 +10,7 @@
           </svg>
         </div>
         <div class="row justify-content-center">
-          <a href="new-article.php"><button class="button">Ajouter un article</button></a>
+          <a href="/dashboard/articles/new"><button class="button">Ajouter un article</button></a>
         </div>
         <div style="overflow-x:scroll">
 

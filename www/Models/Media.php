@@ -82,4 +82,25 @@ class Media extends Database
     {
         parent::save();
     }
+
+    public function getFormMedia(): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/dashboard/medias",
+                "uploadform" => "multipart/form-data",
+                "submit" => "Ajouter"
+            ],
+            "inputs" => [
+                "title" => [
+                    "type" => "file",
+                    "id" => "media",
+                    "class" => "inputTitleAticle",
+                    "required" => true,
+                    "error" => "erreur sur le fichier",
+                ],
+            ],
+        ];
+    }
 }

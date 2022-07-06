@@ -34,14 +34,19 @@
   controller: admin
   action: medias
 
+/dashboard/medias/new:
+  controller: admin
+  action: newMedia
+
+
 /dashboard/articles:
   controller: admin
   action: articles
 
+/dashboard/articles/new:
+  controller: admin
+  action: newArticle
+
 /dashboard/users:
   controller: admin
   action: users
-
-/dashboard/see:
-  controller: admin
-  action: see
