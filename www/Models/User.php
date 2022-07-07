@@ -274,7 +274,6 @@ class User extends Database
                     "class" => "inputRegister",
                     "required" => true,
                     "confirm" => "password",
-                    "error" => "Votre mot de passe de confirmation ne correspond pas",
                 ],
 
             ]

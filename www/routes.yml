@@ -29,3 +29,23 @@
 /admin/dashboard:
   controller: admin
   action: dashboard
+
+/admin/users:
+  controller: users
+  action: users
+
+/admin/pages:
+  controller: pages
+  action: pages
+
+/admin/products:
+  controller: products
+  action: products
+
+/admin/comments:
+  controller: comments
+  action: comments
+
+/admin/categories:
+  controller: categories
+  action: categories
