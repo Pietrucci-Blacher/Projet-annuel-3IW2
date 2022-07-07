@@ -17,3 +17,38 @@
         <?php endif; ?>
     </div>
 </section>
+<script>
+
+const formulaire = document.querySelector(".articleCreate");
+formulaire.addEventListener('submit', (e) => {
+    e.preventDefault();
+    console.log("test1");
+})
+const button = document.getElementById('buttonValidate');
+button.addEventListener('click', async () => {
+    console.log("test2");
+    //create init for fetch with the input value
+    const data = new FormData(formulaire);
+    for (var pair of data.entries()) {
+    console.log(pair[0]+ ', ' + pair[1]);
+                }
+    const init = {
+        headers : {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        method: 'POST',
+        body: data,
+    };
+    //fetch the url with the init
+    const response = await fetch('/articles', init);
+    console.log("test3");
+    //get the json from the response
+    const json = await response.json();
+    if(json.success) {
+        window.location.href = '/articles';
+        console.log("test4");
+    }
+
+});
+</script>

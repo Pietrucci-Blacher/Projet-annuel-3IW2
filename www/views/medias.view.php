@@ -1,6 +1,6 @@
-
+<?php include("includes/menu.view.php"); ?>
   <?php //include "menu.php"; ?>
-    <main>
+    <main class="home">
       <div class="main container">
         <div
           class="row justify-content-between main__header align-items-center"

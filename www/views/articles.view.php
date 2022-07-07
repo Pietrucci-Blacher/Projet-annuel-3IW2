@@ -1,3 +1,4 @@
+<?php //include("includes/menu.view.php"); ?>
 <main>
       <div class="main container">
         <div

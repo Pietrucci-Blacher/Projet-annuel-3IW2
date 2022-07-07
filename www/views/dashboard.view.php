@@ -1,6 +1,5 @@
-<?php include("partial/menu.partial.php"); ?>
-
-<section class="dashboard">
-    <h1>Tableau de bord</h1>
-    <h2>Welcome <?= $firstname ?> <?= $lastname ?></h2>
+<?php include("includes/menu.view.php"); ?>
+<section class="home">
+    <div class="text">Dashboard Sidebar</div>
+    <div class="text">Test0</div>
 </section>

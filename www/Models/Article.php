@@ -145,8 +145,8 @@ class Article extends Database
     {
         return [
             "config" => [
+                "class" => "articleCreate",
                 "method" => "POST",
-                "action" => "/dashboard/articles",
                 "uploadform" => "multipart/form-data",
                 "submit" => "Ajouter l'article"
             ],
@@ -162,14 +162,14 @@ class Article extends Database
                     "error" => "erreur sur le titre",
                 ],
                 "textarea" => [
-                  "type" => "text",
                   "placeholder" => "Description ...",
                   "id" => "DescriptionArticle",
+                  "name"=> "DescriptionArticle",
                   "class" => "inputDescriptioniAticle",
                   "required" => true,
-                  "min" => 2,
-                  "max" => 50,
                   "error" => "erreur sur la description",
+                  "rows" => 2,
+                  "cols" => 2,
                 ],
 
             ],

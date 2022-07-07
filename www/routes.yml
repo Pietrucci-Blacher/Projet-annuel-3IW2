@@ -50,3 +50,7 @@
 /dashboard/users:
   controller: admin
   action: users
+
+/dashboard:
+  controller: admin
+  action: dashboard
