@@ -34,4 +34,15 @@ class Config
         }
         return null;
     }
+
+    public function set($key, $valueset)
+    {
+        foreach ($this->settings as $index => $value) {
+            if(array_key_exists($key, $this->settings[$index])){
+                $this->settings[$index][$key] = $valueset;
+            }
+        }
+        return null;
+    }
+
 }

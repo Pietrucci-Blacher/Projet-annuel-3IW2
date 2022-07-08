@@ -2,9 +2,9 @@
 
 namespace App\Core;
 
-use App\Controller\SetupController;
-use App\Core\Security;
 use App\Core\ErrorHandler;
+use App\Core\Security;
+use App\Core\Config;
 
 class Router
 {
@@ -30,6 +30,8 @@ class Router
             }
         }else{
             //Appel au Controller de Error
+            $this->error = "Le fichier de route n'existe pas";
+            ErrorHandler::displayError($this->error);
         }
 
     }
@@ -63,7 +65,7 @@ class Router
 
     public function getAllRoutes(): array
     {
-        return yaml_parse_file('routes.yml');
+        return yaml_parse_file(self::ROUTE_FILE);
     }
 
     public function checkRoute()
@@ -79,10 +81,9 @@ class Router
                     //Vérification du role
                     Security::Authorization($this->getRole());
                     //Vérification du setup ici
-                    if(!SetupController::isSetup()){
-                        header('location: /setup');
-                        exit();
-                    }
+                    /*if(!Config::getInstance()->get('app_setup')){
+                        header('location: /setup', 303);
+                    }*/
 
                     $classObj->$execAction();
                 }else{

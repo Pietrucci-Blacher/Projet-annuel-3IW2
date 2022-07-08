@@ -2,7 +2,7 @@
     <header>
         <div class="image-text">
                 <span class="image">
-                    <img src="https://fr.m.wikipedia.org/wiki/Fichier:BMW_G20,_Paris_Motor_Show_2018,_IMG_0493.jpg" alt="">
+                    <img src="https://png.pngitem.com/pimgs/s/49-497482_random-cartoon-png-transparent-png.png" alt="">
                 </span>
 
             <div class="text logo-text">
@@ -10,7 +10,6 @@
                 <span class="tag">Console de Gestion</span>
             </div>
         </div>
-
         <i class='bx bx-chevron-right toggle'></i>
     </header>
 
@@ -128,3 +127,28 @@
         </div>
     </div>
 </nav>
+
+
+<script>
+    const body = document.querySelector('body'),
+        sidebar = body.querySelector('nav'),
+        toggle = body.querySelector(".toggle"),
+        modeSwitch = body.querySelector(".toggle-switch"),
+        modeText = body.querySelector(".mode-text");
+
+
+    toggle.addEventListener("click" , () =>{
+        sidebar.classList.toggle("close");
+    })
+
+    modeSwitch.addEventListener("click" , () =>{
+        body.classList.toggle("dark");
+
+        if(body.classList.contains("dark")){
+            modeText.innerText = "Light mode";
+        }else{
+            modeText.innerText = "Dark mode";
+
+        }
+    });
+</script>

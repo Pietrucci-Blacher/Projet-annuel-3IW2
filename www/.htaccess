@@ -2,7 +2,7 @@ RewriteEngine on
 RewriteRule  ^robots\.txt$ /robots [R=301,L]
 RewriteRule  ^sitemap\.xml$ /sitemap [R=301,L]
 
-RewriteCond %{HTTP_HOST} ^51\.178\.52\.55
+RewriteCond %{HTTP_HOST} ^51\.178\.53\.150
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 RewriteCond %{HTTPS} off

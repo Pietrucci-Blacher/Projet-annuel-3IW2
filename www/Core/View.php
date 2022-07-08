@@ -13,18 +13,25 @@ class View
 
     public function __construct($view, $template = "front")
     {
+        if (strpos($view, '/') !== false) {
+            $view = explode('/', $view);
+        }
         $this->setView($view);
         $this->setTemplate($template);
     }
 
     public function setView($view):void
     {
-        $this->view = strtolower($view);
+        if(is_array($view)){
+            $this->view = "views/".strtolower($view[0])."/.". strtolower($view[1]) .".view.php";
+        }else{
+            $this->view = strtolower($view);
+        }
     }
 
     public function setTitle(string $title):void
     {
-        $this->title = Config::getInstance()->get('name') . ' - ' . ucfirst(strtolower($title));
+        $this->title = Config::getInstance()->get('app_name') . ' - ' . ucfirst(strtolower($title));
     }
 
     public function setTemplate($template):void
