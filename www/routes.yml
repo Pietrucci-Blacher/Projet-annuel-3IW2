@@ -2,6 +2,10 @@
   controller: general
   action: home
 
+/sitemap:
+  controller: sitemap
+  action: display
+
 /me-contacter:
   controller: general
   action: contact
@@ -23,5 +27,30 @@
   action: dashboard
 
 /admin/dashboard:
+  controller: admin
+  action: dashboard
+
+/dashboard/medias:
+  controller: admin
+  action: medias
+
+/dashboard/medias/new:
+  controller: admin
+  action: newMedia
+
+
+/dashboard/articles:
+  controller: admin
+  action: articles
+
+/dashboard/articles/new:
+  controller: admin
+  action: newArticle
+
+/dashboard/users:
+  controller: admin
+  action: users
+
+/dashboard:
   controller: admin
   action: dashboard

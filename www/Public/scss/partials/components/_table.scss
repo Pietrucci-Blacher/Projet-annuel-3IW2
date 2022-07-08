@@ -1,77 +1,7 @@
-/**
-  Changement de la taille de la typo
- */
-
-.menu {
-  border: 1px solid red;
-}
-
-.inputText {
-  padding: 10px 15px;
-  margin: 10px 0;
-  border-radius: 7px;
-  border: none;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  border: 1px solid gray;
-  width: 100%;
-}
-
-.inputText::-moz-placeholder {
-  font-size: 12px;
-}
-
-.inputText::placeholder {
-  font-size: 12px;
-}
-
-.btn {
-  padding: 10px 15px;
-  width: 100%;
-  border-radius: 7px;
-  text-align: center;
-  color: white;
-  margin: 10px 0;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.btn--blue {
-  background-color: #4896FF;
-}
-
-.btn--blue:hover {
-  background-color: #6dacff;
-}
-
-.btn--alert {
-  background-color: #C82333;
-}
-
-.btn--alert:hover {
-  background-color: #871822;
-}
-
-.register,
-.login {
-  height: 100vh;
-}
-
-.register__container,
-.login__container {
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  background: white;
-  border-radius: 10px;
-  padding: 50px;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-}
-
 body {
   background-color: #F0F0F1;
   font-family: "Roboto", sans-serif;
 }
-
 #articles_table {
   width: 100%;
   border-collapse: collapse;
@@ -154,4 +84,3 @@ body {
   gap: 15px;
   margin-bottom: 2em;
 }
-

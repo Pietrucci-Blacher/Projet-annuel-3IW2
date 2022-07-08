@@ -1,8 +1,8 @@
-<form method="<?= $config["config"]["method"] ?? "POST" ?>" action="<?= $config["config"]["action"] ?? "" ?>" enctype="<?= $config["config"]["uploadform"] ? "multipart/form-data" : "" ?>">
+<form class="<?= $config["config"]["class"] ?? "" ?>" method="<?= $config["config"]["method"] ?? "POST" ?>" action="<?= $config["config"]["action"] ?? "" ?>" enctype="<?= $config["config"]["uploadform"] ? "multipart/form-data" : "" ?>">
 
     <?php foreach ($config["inputs"] as $name => $input) : ?>
         <?php if ($name == "textarea") : ?>
-            <textarea placeholder="<?= $input["placeholder"] ?>" rows="<?= $input["rows"] ?>" cols="<?= $input["cols"] ?>"></textarea>
+            <textarea placeholder="<?= $input["placeholder"] ?>" rows="<?= $input["rows"] ?>" name="<?= $input["name"] ?>" cols="<?= $input["cols"] ?>"></textarea>
         <?php elseif ($name == "captcha") : ?>
             <div class="<?= $input["class"] ?>" data-sitekey="<?= $input["sitekey"] ?>"></div>
         <?php elseif ($name == "radiobuttons") : ?>
@@ -37,5 +37,5 @@
         <?php endif; ?>
         <br>
     <?php endforeach; ?>
-    <input type="submit" value="<?= $config["config"]["submit"] ?? "Valider" ?>" class="btn btn--blue">
+    <input id="buttonValidate" type="submit" value="<?= $config["config"]["submit"] ?? "Valider" ?>" class="btn btn--blue">
 </form>
