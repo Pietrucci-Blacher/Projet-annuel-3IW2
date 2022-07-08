@@ -221,7 +221,61 @@ class User extends Database
                     "id" => "pwdRegister",
                     "class" => "inputRegister",
                     "required" => true,
-                ]
+                ],
+
+            ]
+
+        ];
+    }
+
+    public function getFormResetPassword(): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "submit" => "Envoyer"
+            ],
+            "inputs" => [
+                "email" => [
+                    "type" => "email",
+                    "placeholder" => "Votre email ...",
+                    "id" => "emailRegister",
+                    "class" => "inputRegister",
+                    "required" => true,
+                ],
+
+            ]
+
+        ];
+    }
+
+    public function getFormNewPassword(): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "submit" => "Se connecter"
+            ],
+            "inputs" => [
+                "password" => [
+                    "type" => "password",
+                    "placeholder" => "Votre mot de passe ...",
+                    "id" => "pwdRegister",
+                    "class" => "inputRegister",
+                    "required" => true,
+                    "error" => "Votre mot de passe doit faire entre 4 et 16 et contenir des chiffres et des lettres",
+                ],
+                "passwordConfirm" => [
+                    "type" => "password",
+                    "placeholder" => "Confirmation ...",
+                    "id" => "pwdConfirmRegister",
+                    "class" => "inputRegister",
+                    "required" => true,
+                    "confirm" => "password",
+                ],
+
             ]
 
         ];

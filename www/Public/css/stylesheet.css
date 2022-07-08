@@ -2,8 +2,22 @@
   Changement de la taille de la typo
  */
 
-.menu {
-  border: 1px solid red;
+.list {
+  border-right: 1px solid black;
+}
+
+.list__menu_item {
+  padding: 16px;
+  width: 100%;
+  text-align: left;
+  background-color: white;
+  border-top: 1px solid black;
+}
+
+.list__menu_item:hover {
+  opacity: 0.8;
+  font-size: 1.05rem;
+  font-weight: bold;
 }
 
 .inputText {
@@ -65,5 +79,9 @@
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
+}
+
+.link_forgot {
+  font-size: 12px;
 }
 

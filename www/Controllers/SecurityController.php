@@ -9,6 +9,8 @@ use App\Core\Security;
 use App\Core\Helpers;
 use App\Core\Session;
 
+use function PHPSTORM_META\type;
+
 class SecurityController
 {
     public function login()
@@ -20,7 +22,7 @@ class SecurityController
         $user = new UserModel();
 
 
-        $view = new View("login");
+        $view = new View("auth/login", "blank");
         $view->assign("title", "Espace connexion client - Chiperz");
         $view->assign("user", $user);
 
@@ -63,7 +65,7 @@ class SecurityController
             header('location: /admin/dashboard');
         }
         $user = new UserModel();
-        $view = new View("register");
+        $view = new View("auth/register", "blank");
         $view->assign("user", $user);
 
         if (!empty($_POST)) {
@@ -116,6 +118,80 @@ class SecurityController
                 $user->executeQuery($update);
 
                 header('location: /login');
+            }
+        }
+    }
+
+    public function resetPassword() {
+        $user = new UserModel();
+        $view = new View("auth/forgotPassword", "blank");
+        $view->assign("user", $user);
+        
+        $view->assign("emailSent", false);
+
+        if(!empty($_POST["email"]) && empty($_GET)) {
+            $errors = [];
+            $result = Validator::run($user->getFormResetPassword(), $_POST);
+
+            if(empty($result)) {
+                $data = $user->find(['email' => $_POST["email"]]);
+                if(!empty($data)) {
+                    $token = str_shuffle(md5(uniqid()));
+                    $update = $user->update($user->getTable(), ["reset_token" => "'{$token}'"])->where("id", $data["id"])->getQuery();
+                    $user->executeQuery($update);
+
+                    // send email with token
+                    $email = $_POST["email"];
+                    $from = ['email' => "chiperz.esgi@gmail.com", 'name' => "toto"];
+                    $to = ['email' => $email, 'name' => "benjamin"];
+                    $subject = 'Chiperz Réinitialisation de votre mot de passe';
+                    $link = 'http://' . $_SERVER['HTTP_HOST'];
+                    $confirm_link = $link . '/forgot-password?token=' . $token;
+    
+                    $email = Helpers::mailer($from, $to, $subject, ['[appname]', '[firstname]', '[email]', '[link]', '[confirm_link]'], ["Chiperz", ucfirst("benjamin"), $to['email'], $link, $confirm_link], true, 'registered');
+                    if ($email['error']) {
+                        echo $email["error_message"];
+                    }
+
+                    $view->assign("emailSentMsg", "Un email vous a été envoyé");
+                    
+                } else {
+                    $errors[] = "Aucun compte n'est lié à cet email";
+                    $view->assign("errors", $errors);
+                }
+            }
+        }
+
+        if(!empty($_GET)) {
+            $token = $_GET["token"];
+            $data = $user->find(['reset_token' => $token]);
+            if(!empty($data)) {
+                $view->assign("emailSent", true);
+            } else {
+                header('location: /login');
+            }
+        }
+
+        if(!empty($_POST["password"]) && !empty($_GET)) {
+            $token = $_GET["token"];
+            $errors = [];
+            $result = Validator::run($user->getFormNewPassword(), $_POST);
+
+            if(empty($result)) {
+                if($_POST["password"] == $_POST["passwordConfirm"]) {
+                    $data = $user->find(['reset_token' => $token]);
+                    $hashed_password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
+                    $update = $user->update($user->getTable(), ["password" => "'".$hashed_password."'", "reset_token" => "NULL"])->where("reset_token", $token)->getQuery();
+                    
+                    $user->executeQuery($update);
+                    header('location: /login');
+                } else {
+                    $errors[] = "Les mots de passe ne correspondent pas";
+                    $view->assign("errors", $errors);
+                }
+            } else {
+                $view->assign("errors", $result);
             }
         }
     }

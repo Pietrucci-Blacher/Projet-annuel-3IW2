@@ -10,6 +10,10 @@
   controller: security
   action: login
 
+/forgot-password:
+  controller: security
+  action: resetPassword
+
 /logout:
   controller: security
   action: logout
@@ -25,3 +29,23 @@
 /admin/dashboard:
   controller: admin
   action: dashboard
+
+/admin/users:
+  controller: users
+  action: users
+
+/admin/pages:
+  controller: pages
+  action: pages
+
+/admin/products:
+  controller: products
+  action: products
+
+/admin/comments:
+  controller: comments
+  action: comments
+
+/admin/customization:
+  controller: customization
+  action: customization

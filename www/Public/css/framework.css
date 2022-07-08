@@ -185,3 +185,9 @@ a {
   border: 1px solid #C3E6CB;
 }
 
+.layout {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
