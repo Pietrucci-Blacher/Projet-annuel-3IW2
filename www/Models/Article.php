@@ -8,6 +8,7 @@ class Article extends Database
 
     protected $user_id = null;
     protected $title;
+    protected $description;
     protected $autor;
     protected $categories;
     protected $comments;
@@ -38,6 +39,12 @@ class Article extends Database
     /**
      * @return mixed
      */
+    public function setTitle($title): string
+    {
+        return $this->title = $title;
+    }
+    
+
     public function getTitle(): string
     {
         return $this->title;
@@ -46,10 +53,17 @@ class Article extends Database
     /**
      * @return mixed
      */
-    public function setTitle(): string
+    public function setDescription($description): string
     {
-        //return $this->media_url;
+        return $this->description = $description;
     }
+
+    public function getDescritpion(): string
+    {
+        return $this->description;
+    }
+
+
 
     /**
      * @return mixed

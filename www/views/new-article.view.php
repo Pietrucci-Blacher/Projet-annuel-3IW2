@@ -22,11 +22,9 @@
 const formulaire = document.querySelector(".articleCreate");
 formulaire.addEventListener('submit', (e) => {
     e.preventDefault();
-    console.log("test1");
 })
 const button = document.getElementById('buttonValidate');
 button.addEventListener('click', async () => {
-    console.log("test2");
     //create init for fetch with the input value
     const data = new FormData(formulaire);
     for (var pair of data.entries()) {
@@ -41,14 +39,11 @@ button.addEventListener('click', async () => {
         body: data,
     };
     //fetch the url with the init
-    const response = await fetch('/articles', init);
-    console.log("test3");
+    const response = await fetch('dashboard/articles', init);
+    console.log(response);
     //get the json from the response
-    const json = await response.json();
-    if(json.success) {
-        window.location.href = '/articles';
-        console.log("test4");
+    if(response.status === 200) {
+        window.location.href = 'dashboard/articles';
     }
-
 });
 </script>

@@ -39,7 +39,14 @@ class AdminController
         $articlesView = new View("articles");
         $articlesView->assign("articles",$articleList);
 
-        print_r($_POST);
+        if($_POST){
+            $title = htmlspecialchars($_POST['title']);
+            $description = htmlspecialchars($_POST['DescriptionArticle']);
+
+            $articles->setTitle($title);
+            $articles->setDescription($description);
+            $articles->save();
+        }
     }
 
     public function newArticle(){
