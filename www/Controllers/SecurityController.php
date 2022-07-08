@@ -2,26 +2,25 @@
 
 namespace App\Controller;
 
-use App\Models\User as UserModel;
+use App\Model\User as UserModel;
 use App\Core\Validator;
 use App\Core\View;
 use App\Core\Security;
-use App\Core\Helpers;
-use App\Core\Session;
+
 
 class SecurityController
 {
     public function login()
     {
-        if (Security::isConnected()) {
-            header('location: /admin/dashboard');
+        if(Security::isConnected()) {
+            header('location: /');
         }
 
         $user = new UserModel();
 
 
         $view = new View("login");
-        $view->assign("title", "Espace connexion client - Chiperz");
+        $view->setTitle("Espace connexion client");
         $view->assign("user", $user);
 
 
@@ -38,58 +37,43 @@ class SecurityController
 
                 $hash_password_db = $data["password"];
 
-                if (!password_verify($password, $hash_password_db)) {
-                    $errors[] = "Mail ou mot de passe incorrect";
-                    $view->assign("errors", $errors);
+                if(password_verify($password, $hash_password_db)) {
+                    $_SESSION["token"] = $token;
+                    header('location: /');
                 } else {
-                    if ($data["status"] == 1) {
-                        Session::add('user', $data);
-                        header('location: /admin/dashboard');
-                    } else {
-                        $errors[] = "Votre compte n'est pas activé";
-                        $view->assign("errors", $errors);
-                    }
+                    return "password invalid";
                 }
-            } else {
-                $errors[] = "Aucun compte n'est lié à cet email";
-                $view->assign("errors", $errors);
             }
+
         }
+        $view = new View("login");
+        $view->setTitle("Espace connexion client");
+        $view->assign("user", $user);
     }
 
     public function register()
     {
-        if (Security::isConnected()) {
-            header('location: /admin/dashboard');
-        }
         $user = new UserModel();
         $view = new View("register");
+        $view->setTitle("Espace inscription client");
         $view->assign("user", $user);
 
         if (!empty($_POST)) {
             $errors = [];
             $result = Validator::run($user->getFormRegister(), $_POST);
-            if (empty($result)) {
-                $token = str_shuffle(md5(uniqid()));
-
-                $data = $user->find(['email' => $_POST["email"]]);
-                if (!empty($data)) {
-                    $errors[] = "Cet email est déjà utilisé";
-                    $view->assign("errors", $errors);
-                }
-
+            if(empty($result)) {
                 $user->setEmail($_POST["email"]);
                 $user->setPassword($_POST["password"]);
                 $user->setLastname($_POST["lastname"]);
                 $user->setFirstname($_POST["firstname"]);
-                $user->setToken($token);
+                $user->generateToken();
                 $user->save();
 
                 $email = $_POST["email"];
                 $from = ['email' => "chiperz.esgi@gmail.com", 'name' => "toto"];
                 $to = ['email' => $email, 'name' => "benjamin"];
                 $subject = 'Chiperz Création de votre compte';
-                $link = 'http://' . $_SERVER['HTTP_HOST'];
+                $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
                 $confirm_link = $link . '/register?token=' . $token;
 
                 $email = Helpers::mailer($from, $to, $subject, ['[appname]', '[firstname]', '[email]', '[link]', '[confirm_link]'], ["Chiperz", ucfirst("benjamin"), $to['email'], $link, $confirm_link], true, 'registered');
@@ -98,31 +82,27 @@ class SecurityController
                 }
 
                 header('location: /login');
-            } else {
-                $view->assign("errors", $result);
-            }
-        }
 
         if (!empty($_GET["token"])) {
 
             $sql = $user->select($user->getTable(), ["*"])->where("token", $_GET["token"])->getQuery();
             $result = $user->fetchQuery($sql);
-            if (empty($result)) {
-                // if token not found, redirect to login
-                header('location: /login');
-            } else {
+            if (!empty($result)) {
                 // if token found, set user status to 1 then redirect to login
                 $update = $user->update($user->getTable(), ["status" => 1])->where("id", $result[0]["id"])->getQuery();
                 $user->executeQuery($update);
-
-                header('location: /login');
             }
+            header('location: /login');
         }
+        $view = new View("register");
+        $view->setTitle("Espace d'inscription client");
+        $view->assign("user",$user);
     }
 
-    public function logout()
+    public function logout(): void
     {
-        session_destroy();
-        header('location: /login');
+        unset($_SESSION["token"]);
+        header("location: /login");
     }
+
 }

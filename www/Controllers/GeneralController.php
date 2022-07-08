@@ -4,17 +4,14 @@ namespace App\Controller;
 
 use App\Core\View;
 
-class GeneralController{
+class GeneralController {
 
-    public function home()
+    public function home():void
     {
-        echo "Welcome";
+        $view = new View('homepage');
+        $view->setTitle('Page d\'accueil');
     }
 
-    public function contact()
-    {
-        $view = new View("contact");
-    }
 }
 
 

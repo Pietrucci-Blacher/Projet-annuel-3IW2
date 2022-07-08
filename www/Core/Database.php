@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Core\Config;
+
 interface QueryBuilder
 {
     public function insert(string $table, array $columns): QueryBuilder;
@@ -20,21 +22,50 @@ interface QueryBuilder
 class MysqlBuilder implements QueryBuilder
 {
     private $pdo;
+    private $query;
 
     public function __construct()
     {
-        //Faudra intégrer le singleton
-        try{
+        try {
             //Connexion à la base de données
-            $this->pdo = new \PDO( DBDRIVER.":host=".DBHOST.";port=".DBPORT.";dbname=".DBNAME ,DBUSER , DBPWD );
-            $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        }catch(\Exception $e){
-            die("Erreur SQL".$e->getMessage());
-        }
+            $this->pdo = new \PDO("mysql:host=" . Config::getInstance()->get('db_host') . ";port=" . Config::getInstance()->get('db_port') . ";dbname=" . Config::getInstance()->get('db_name'), Config::getInstance()->get('db_user'), Config::getInstance()->get('db_pwd'));
+            if (Config::getInstance()->get("dev_debug")) {
+                $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            }
+        } catch (\Exception $e) {
+            switch ($e->getCode()) {
+                // Invalid table name
+                case 1005:
+                    $message = 'Vérifier la base de donnée utilisée.';
+                    break;
 
+                // Invalid database name
+                case 1044:
+                    $message = 'Vérifier la base de donnée utilisée.';
+                    break;
+
+                // Invalid password
+                case 1045:
+                    $message = 'Vérifier les identifiants utilisés.';
+                    break;
+
+                // Invalid username
+                case 1698:
+                    $message = 'Vérifier les identifiants utilisés.';
+                    break;
+
+                // Invalid hostname
+                case 2002:
+                    $message = "Vérifier l'hôte utilisé.";
+                    break;
+
+                default:
+                    $message = 'Erreur inattendue.';
+                    break;
+            }
+        }
     }
 
-    private $query;
 
     private function reset()
     {
@@ -155,16 +186,46 @@ class Database extends MysqlBuilder
 
         try{
             //Connexion à la base de données
-            $this->pdo = new \PDO( DBDRIVER.":host=".DBHOST.";port=".DBPORT.";dbname=".DBNAME ,DBUSER , DBPWD );
-            $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        }catch(\Exception $e){
-            die("Erreur SQL".$e->getMessage());
+            $this->pdo = new \PDO("mysql:host=".Config::getInstance()->get('db_host').";dbname=".Config::getInstance()->get('db_name'),Config::getInstance()->get('db_user'), Config::getInstance()->get('db_pwd'));
+            if(Config::getInstance()->get("dev_debug")) {
+                $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            }
+        }catch (\Exception $e) {
+            switch ($e->getCode()) {
+                // Invalid table name
+                case 1005:
+                    $message = 'Vérifier la base de donnée utilisée.';
+                    break;
+
+                // Invalid database name
+                case 1044:
+                    $message = 'Vérifier la base de donnée utilisée.';
+                    break;
+
+                // Invalid password
+                case 1045:
+                    $message = 'Vérifier les identifiants utilisés.';
+                    break;
+
+                // Invalid username
+                case 1698:
+                    $message = 'Vérifier les identifiants utilisés.';
+                    break;
+
+                // Invalid hostname
+                case 2002:
+                    $message = "Vérifier l'hôte utilisé.";
+                    break;
+
+                default:
+                    $message = 'Erreur inattendue.';
+                    break;
+            }
         }
 
-        //Récupérer le nom de la table :
-        // -> prefixe + nom de la classe enfant
+
         $classExploded = explode("\\",get_called_class());
-        $this->table = DBPREFIXE.strtolower(end($classExploded));
+        $this->table = Config::getInstance()->get('db_prefix').strtolower(end($classExploded));
 
     }
 
@@ -194,15 +255,15 @@ class Database extends MysqlBuilder
         $columns = array_filter($columns);
 
 
-       if( !is_null($this->getId()) ){
-           foreach ($columns as $key=>$value){
+        if( !is_null($this->getId()) ){
+            foreach ($columns as $key=>$value){
                 $setUpdate[]=$key."=:".$key;
-           }
-           $sql = "UPDATE ".$this->table." SET ".implode(",",$setUpdate)." WHERE id=".$this->getId();
-       }else{
+            }
+            $sql = "UPDATE ".$this->table." SET ".implode(",",$setUpdate)." WHERE id=".$this->getId();
+        }else{
             $sql = "INSERT INTO ".$this->table." (".implode(",", array_keys($columns)).")
             VALUES (:".implode(",:", array_keys($columns)).")";
-       }
+        }
 
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute( $columns );
@@ -231,5 +292,36 @@ class Database extends MysqlBuilder
         }
 
         return false;
+    }
+
+    public function buildQuery($parameters, $whereConditions, $whereClause, $order, $orderConditions, $orderClaus)
+    {
+        $query = "SELECT * FROM ". strtolower($this->table);
+        if (!empty($parameters)) {
+            foreach ($parameters as $key => $value) {
+                $whereConditions[] = "`$key` = '$value'";
+            }
+
+            $whereClause = ' WHERE ' . implode(' AND ', $whereConditions);
+        }
+
+        if (!is_null($order)) {
+            foreach ($order as $key => $value) {
+                $orderConditions[] = "$key " . strtoupper($value);
+            }
+
+            $orderClause = ' ORDER BY ' . implode(', ', $orderConditions);
+        }
+
+        return $this->pdo->query($query . $whereClause . (!empty($order) ? $orderClause : ''));
+    }
+
+    public function findAll($parameters = [], $order = [])
+    {
+        $whereClause = $orderClause = '';
+        $whereConditions = $orderConditions =[];
+        $get_class = get_class($this);
+        $query = $this->buildQuery($parameters, $whereConditions, $whereClause, $order, $orderConditions, $orderClause);
+        return $query->fetchAll(\PDO::FETCH_CLASS, $get_class);
     }
 }

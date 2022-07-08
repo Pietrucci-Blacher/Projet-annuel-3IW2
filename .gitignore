@@ -3,5 +3,8 @@
 #Project
 db_data/
 
+#MacOS
+.DS_Store
+
 www/Public/node_modules/
 www/Public/package-lock.json
