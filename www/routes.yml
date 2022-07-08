@@ -46,6 +46,6 @@
   controller: comments
   action: comments
 
-/admin/categories:
-  controller: categories
-  action: categories
+/admin/customization:
+  controller: customization
+  action: customization

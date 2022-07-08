@@ -22,7 +22,7 @@ class SecurityController
         $user = new UserModel();
 
 
-        $view = new View("auth/login");
+        $view = new View("auth/login", "blank");
         $view->assign("title", "Espace connexion client - Chiperz");
         $view->assign("user", $user);
 
@@ -65,7 +65,7 @@ class SecurityController
             header('location: /admin/dashboard');
         }
         $user = new UserModel();
-        $view = new View("auth/register");
+        $view = new View("auth/register", "blank");
         $view->assign("user", $user);
 
         if (!empty($_POST)) {
@@ -124,7 +124,7 @@ class SecurityController
 
     public function resetPassword() {
         $user = new UserModel();
-        $view = new View("auth/forgotPassword");
+        $view = new View("auth/forgotPassword", "blank");
         $view->assign("user", $user);
         
         $view->assign("emailSent", false);

@@ -3,10 +3,12 @@
 <head>
     <?php include("includes/head.view.php") ?>
 </head>
-<body class="layout">
+<body>
 
 <?php include("partial/menu.partial.php"); ?>
-<?php include $this->view.".view.php";?>
+<div class="layout">
+    <?php include $this->view.".view.php";?>
+</div>
 
 </body>
 </html>
