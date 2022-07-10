@@ -2,22 +2,10 @@
   Changement de la taille de la typo
  */
 
-.list {
-  border-right: 1px solid black;
-}
-
-.list__menu_item {
-  padding: 16px;
+.products {
   width: 100%;
-  text-align: left;
-  background-color: white;
-  border-top: 1px solid black;
-}
-
-.list__menu_item:hover {
-  opacity: 0.8;
-  font-size: 1.05rem;
-  font-weight: bold;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .inputText {
@@ -62,6 +50,48 @@
 
 .btn--alert:hover {
   background-color: #871822;
+}
+
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+  background-color: #695CFE;
+  color: #ffffff;
+  text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #695CFE;
+}
+
+.styled-table tbody tr.styled-row {
+  font-weight: bold;
+  color: #695CFE;
+  cursor: pointer;
+}
+
+.styled-table tbody tr.styled-row:hover {
+  background-color: rgba(105, 92, 254, 0.1);
 }
 
 .register,

@@ -15,6 +15,7 @@ class User extends Database
     protected $status = null;
     protected $token = null;
     protected $confirmed;
+    protected $role;
 
     public function __construct()
     {
@@ -125,6 +126,16 @@ class User extends Database
     public function setToken($token): void
     {
         $this->token = $token;
+    }
+
+    public function setRole($role): void
+    {
+        $this->role = $role;
+    }
+
+    public function getRole(): string
+    {
+        return $this->role;
     }
 
 
@@ -278,6 +289,52 @@ class User extends Database
 
             ]
 
+        ];
+    }
+
+    
+    public function getFormEditUser($value = []): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "uploadform" => "multipart/form-data",
+                "submit" => "Modifier"
+            ],
+            "inputs" => [
+                "email" => [
+                    "type" => "email",
+                    "placeholder" => "Votre email ...",
+                    "value" => $value["email"] ?? "",
+                    "id" => "emailRegister",
+                    "class" => "inputRegister",
+                    "required" => true,
+                    "error" => "Email incorrect",
+                    "unicity" => true,
+                    "errorUnicity" => "Email existe déjà en bdd"
+                ],
+                "firstname" => [
+                    "type" => "text",
+                    "placeholder" => "Prénom ...",
+                    "value" => $value["firstname"] ?? "",
+                    "id" => "firstnameRegister",
+                    "class" => "inputRegister",
+                    "min" => 2,
+                    "max" => 50,
+                    "error" => "Votre prénom n'est pas correct",
+                ],
+                "lastname" => [
+                    "type" => "text",
+                    "placeholder" => "Nom ...",
+                    "value" => $value["lastname"] ?? "",
+                    "id" => "lastnameRegister",
+                    "class" => "inputRegister",
+                    "min" => 2,
+                    "max" => 100,
+                    "error" => "Votre nom n'est pas correct",
+                ],
+            ],
         ];
     }
 }

@@ -1,6 +1,9 @@
 <form method="<?= $config["config"]["method"] ?? "POST" ?>" action="<?= $config["config"]["action"] ?? "" ?>" enctype="<?= $config["config"]["uploadform"] ? "multipart/form-data" : "" ?>">
 
     <?php foreach ($config["inputs"] as $name => $input) : ?>
+        <?php if (isset($input["label"])) : ?>
+            <label class="label" for="<?= $input["id"] ?>"><?= $input["label"] ?></label>
+        <?php endif ?>
         <?php if ($name == "textarea") : ?>
             <textarea placeholder="<?= $input["placeholder"] ?>" rows="<?= $input["rows"] ?>" cols="<?= $input["cols"] ?>"></textarea>
         <?php elseif ($name == "captcha") : ?>
@@ -32,10 +35,14 @@
 
         <?php else : ?>
 
-            <input name="<?= $name ?>" id="<?= $input["id"] ?>" type="<?= $input["type"] ?>" class="<?= $input["class"] ?> inputText" <?= (!empty($input["placeholder"])) ? 'placeholder="' . $input["placeholder"] . '"' : '' ?> <?= (!empty($input["required"])) ? 'required="required"' : '' ?>>
+            <input <?= (isset($input["value"])) ? 'value="' . $input["value"] . '"' : '' ?>  <?= (!empty($input["step"])) ? 'step="' . $input["step"] . '"' : '' ?> name="<?= $name ?>" id="<?= $input["id"] ?>" type="<?= $input["type"] ?>" class="<?= $input["class"] ?> inputText" <?= (!empty($input["placeholder"])) ? 'placeholder="' . $input["placeholder"] . '"' : '' ?> <?= (!empty($input["required"])) ? 'required="required"' : '' ?>>
 
         <?php endif; ?>
         <br>
     <?php endforeach; ?>
     <input type="submit" value="<?= $config["config"]["submit"] ?? "Valider" ?>" class="btn btn--blue">
 </form>
+
+<script>
+    
+</script>

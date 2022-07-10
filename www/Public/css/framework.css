@@ -6,6 +6,7 @@
 
 body {
   margin: 0;
+  padding: 0;
   font-family: "Sora";
 }
 
@@ -161,6 +162,10 @@ a {
   text-align: center;
 }
 
+.label {
+  font-size: 14px;
+}
+
 .bg-login {
   background: rgb(255, 175, 189);
   background: linear-gradient(202deg, rgb(255, 175, 189) 0%, rgb(255, 195, 160) 100%);
@@ -185,9 +190,14 @@ a {
   border: 1px solid #C3E6CB;
 }
 
-.layout {
-  display: flex;
-  flex-direction: row;
-  min-height: 100vh;
+.cursor {
+  cursor: pointer;
+}
+
+.dataTables_wrapper {
+  background-color: #fff;
+  margin-top: 30px;
+  border-radius: 5px;
+  padding: 10px;
 }
 

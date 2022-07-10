@@ -232,4 +232,35 @@ class Database extends MysqlBuilder
 
         return false;
     }
+
+    public function buildQuery($parameters, $whereConditions, $whereClause, $order, $orderConditions, $orderClaus)
+    {
+        $query = "SELECT * FROM ". strtolower($this->table);
+        if (!empty($parameters)) {
+            foreach ($parameters as $key => $value) {
+                $whereConditions[] = "`$key` = '$value'";
+            }
+
+            $whereClause = ' WHERE ' . implode(' AND ', $whereConditions);
+        }
+
+        if (!is_null($order)) {
+            foreach ($order as $key => $value) {
+                $orderConditions[] = "$key " . strtoupper($value);
+            }
+
+            $orderClause = ' ORDER BY ' . implode(', ', $orderConditions);
+        }
+
+        return $this->pdo->query($query . $whereClause . (!empty($order) ? $orderClause : ''));
+    }
+
+    public function findAll($parameters = [], $order = [])
+    {
+        $whereClause = $orderClause = '';
+        $whereConditions = $orderConditions =[];
+        $get_class = get_class($this);
+        $query = $this->buildQuery($parameters, $whereConditions, $whereClause, $order, $orderConditions, $orderClause);
+        return $query->fetchAll(\PDO::FETCH_CLASS, $get_class);
+    }
 }

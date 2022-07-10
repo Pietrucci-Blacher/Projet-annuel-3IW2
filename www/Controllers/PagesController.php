@@ -6,8 +6,8 @@ use App\Core\View;
 
 class PagesController
 {
-  public function pages()
+  public function main()
   {
-    $view = new View("pages", "back");
+    $view = new View("pages/main", "back");
   }
 }
