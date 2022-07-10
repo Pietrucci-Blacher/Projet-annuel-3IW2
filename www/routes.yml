@@ -49,3 +49,8 @@
 /admin/customization:
   controller: customization
   action: customization
+
+/setup:
+  controller: setup
+  action: setup
+  roles: []

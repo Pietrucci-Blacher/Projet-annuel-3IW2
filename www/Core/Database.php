@@ -26,7 +26,7 @@ class MysqlBuilder implements QueryBuilder
         //Faudra intégrer le singleton
         try{
             //Connexion à la base de données
-            $this->pdo = new \PDO( DBDRIVER.":host=".DBHOST.";port=".DBPORT.";dbname=".DBNAME ,DBUSER , DBPWD );
+            $this->pdo = new \PDO("mysql:host=".Config::getInstance()->get('db_host').";port=".Config::getInstance()->get('db_port').";dbname=".Config::getInstance()->get('db_name') ,Config::getInstance()->get('db_user') , Config::getInstance()->get('db_pwd') );
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         }catch(\Exception $e){
             die("Erreur SQL".$e->getMessage());
@@ -155,7 +155,7 @@ class Database extends MysqlBuilder
 
         try{
             //Connexion à la base de données
-            $this->pdo = new \PDO( DBDRIVER.":host=".DBHOST.";port=".DBPORT.";dbname=".DBNAME ,DBUSER , DBPWD );
+            $this->pdo = new \PDO( Config::getInstance()->get('').":host=".DBHOST.";port=".DBPORT.";dbname=".DBNAME ,DBUSER , DBPWD );
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         }catch(\Exception $e){
             die("Erreur SQL".$e->getMessage());
@@ -164,7 +164,7 @@ class Database extends MysqlBuilder
         //Récupérer le nom de la table :
         // -> prefixe + nom de la classe enfant
         $classExploded = explode("\\",get_called_class());
-        $this->table = DBPREFIXE.strtolower(end($classExploded));
+        $this->table = Config::getInstance()->get('db_prefix').strtolower(end($classExploded));
 
     }
 

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <?php include("includes/head.view.php") ?>
+    <title><?= $this->title ?? \App\Core\Config::getInstance()->get('app_name') ?></title>
+    <?php include(__DIR__ . '/../includes/head.view.php') ?>
+    <script src=""></script>
 </head>
 <body>
 
-<?php include("partial/menu.partial.php"); ?>
+<?php include(__DIR__ ."/../partial/menu.partial.php"); ?>
 <div class="layout">
-    <?php include $this->view.".view.php";?>
+    <?php include __DIR__ .'/../' . $this->view. '.view.php';?>
 </div>
 
 </body>
