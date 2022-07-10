@@ -1,13 +1,10 @@
 <?php
 
-
-
 namespace App\Core;
 
 use App\Core\Security;
 use App\Core\Helpers;
 use App\Core\Config;
-
 
 class Router
 {
@@ -49,13 +46,10 @@ class Router
         return $this->controller;
     }
 
-    //Getter
-
     public function getAction()
     {
         return $this->action;
     }
-    //Getter
     public function getRouteRoles()
     {
         return $this->routeRoles;
@@ -91,10 +85,11 @@ class Router
                         header('location: /');
                     }
 
-                    if(!Config::getInstance()->get('app_setup') && $this->uri !== '/setup'){
-                        header('Location: /setup',303);
-                    }elseif(Config::getInstance()->get('app_setup') && $this->uri !== '/setup') {
-                        header('Location: /login', 303);
+                    //Vérification du setup ici
+                    if(!Config::getInstance()->get('app_setup') && !$this->uri !== '/setup'){
+                        header('location: /setup', 303);
+                    }elseif (Config::getInstance()->get('app_setup') && $this->uri === '/setup') {
+                        header('location: /login', 303);
                     }
                     $classObj->$execAction();
                 } else {

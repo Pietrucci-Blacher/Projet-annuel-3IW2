@@ -129,7 +129,8 @@
 # CustomizationController
 /admin/customization:
   controller: customization
-  action: customization
+  action: main
+  roles: ["admin"]
 
 /setup:
   controller: setup

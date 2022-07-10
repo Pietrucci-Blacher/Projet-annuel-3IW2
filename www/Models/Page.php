@@ -7,6 +7,7 @@ use App\Core\Database;
 class Page extends Database
 {
 
+
   protected $id = null;
   protected $name;
   protected $link;
@@ -59,6 +60,62 @@ class Page extends Database
     $this->content = $content;
   }
 
+      /**
+     * @param string $link
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+    /**
+     * @param int $index
+     */
+    public function setIndex($index)
+    {
+        $this->index = $index;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIndex()
+    {
+        return $this->index;
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return datetime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
   /* Save in database */
   public function save()
   {
@@ -102,3 +159,6 @@ class Page extends Database
     ];
   }
 }
+
+
+
