@@ -2,10 +2,13 @@
 @import "partials/grid";
 @import "partials/components/banner";
 @import "partials/functions";
+@import "partials/global";
 
-@import "partials/components/menu";
+
 @import "partials/components/input";
+@import "partials/components/table";
 @import "partials/blocks/dashboard";
 @import "partials/blocks/register";
 @import "partials/blocks/login";
 @import "partials/blocks/articles";
+@import "partials/blocks/products";

@@ -6,8 +6,8 @@ use App\Core\View;
 
 class CustomizationController
 {
-  public function customization()
+  public function main()
   {
-    $view = new View("customization", "back");
+    $view = new View("customization/main", "back");
   }
 }

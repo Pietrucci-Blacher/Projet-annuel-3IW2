@@ -6,8 +6,8 @@ use App\Core\View;
 
 class CommentsController
 {
-  public function comments()
+  public function main()
   {
-    $view = new View("comments", "back");
+    $view = new View("comments/main", "back");
   }
 }

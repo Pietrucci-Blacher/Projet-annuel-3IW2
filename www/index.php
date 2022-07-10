@@ -1,9 +1,9 @@
 <?php
 namespace App;
+use App\Core\Router;
 
 use App\Core\AutoLoader;
 use App\Core\Config;
-use App\Core\Router;
 
 require 'Core/AutoLoader.php';
 

@@ -1,59 +1,67 @@
 <?php
 
 
+
 namespace App\Core;
 
 use App\Core\Security;
 use App\Core\Helpers;
 use App\Core\Config;
 
+
 class Router
 {
     public const ROUTE_FILE = 'routes.yml';
     private $routes = [];
-    private  $uri;
-    private $controller;
-    private  $action;
-    private  $role;
-    public $error;
 
+    private $uri;
+    private $controller;
+    private $action;
+    private $routeRoles;
+    public $error;
 
     public function __construct($uri)
     {
         $this->setUri($uri);
         if (file_exists(self::ROUTE_FILE)) {
             $this->routes = yaml_parse_file(self::ROUTE_FILE);
-            if (!empty($this->routes[$this->uri]) && !empty($this->routes[$this->uri]["controller"]) && !empty($this->routes[$this->uri]["action"])) {
-                $this->controller = $this->routes[$this->uri]['controller'];
-                $this->action = $this->routes[$this->uri]['action'];
-                $this->role = $this->routes[$this->uri]['roles'];
+
+            $page = $this->routes[$this->uri];
+
+            if (!empty($page) && !empty($page["controller"]) && !empty($page["action"])) {
+                $this->controller = $page['controller'];
+                $this->action = $page['action'];
+                if (!empty($page['roles'])) {
+                    $this->routeRoles = $page['roles'];
+                }
                 $this->checkRoute();
             }
         } else {
-            die('Erreur le fichier de routes n\'existe pas');
+            //Appel au Controller de Error
+            $this->error = "Le fichier de route n'existe pas";
+            echo "erreur";
         }
-
     }
 
     //Getter
-    public function getController(): string
+    public function getController()
     {
         return $this->controller;
     }
 
     //Getter
-    public function getAction(): string
+
+    public function getAction()
     {
         return $this->action;
     }
-
     //Getter
-    public function getRole(): array
+    public function getRouteRoles()
     {
-        return $this->role;
+        return $this->routeRoles;
     }
 
-    public function getCurrentRoute(): array
+    public function getCurrentRoute()
     {
         return $this->routes[$this->uri];
     }
@@ -79,11 +87,14 @@ class Router
                 if (method_exists($classObj, $this->getAction())) {
                     $execAction = $this->getAction();
                     //Vérification du role
-                    //Security::Authorization($this->getRole());
+                    if (!Security::isAuthorized($this->getRouteRoles())) {
+                        header('location: /');
+                    }
+
                     if(!Config::getInstance()->get('app_setup') && $this->uri !== '/setup'){
-                            header('Location: /setup',303);
-                    }elseif(Config::getInstance()->get('app_setup') && $this->uri !== '/setup'){
-                            header('Location: /login', 303);
+                        header('Location: /setup',303);
+                    }elseif(Config::getInstance()->get('app_setup') && $this->uri !== '/setup') {
+                        header('Location: /login', 303);
                     }
                     $classObj->$execAction();
                 } else {
@@ -93,7 +104,7 @@ class Router
                 //Controller Erreur
             }
         } else {
-        }
             //Controller Erreur
+        }
     }
 }
