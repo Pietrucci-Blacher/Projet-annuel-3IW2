@@ -14,6 +14,7 @@ class Product extends Database
     protected $price;
     protected $quantity;
     protected $category_id;
+    protected $image = null;
     protected $is_published = 0;
 
 
@@ -126,12 +127,32 @@ class Product extends Database
         $this->is_published = $is_published;
     }
 
-    public function getCategoryName(): ?Category
+    /**
+     * Get the value of image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set the value of image
+     */
+    public function setImage($image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getCategoryName(): string
     {
         $category = new Category();
         $category = $category->find(['id' => $this->category_id]);
-        var_dump($category);
-        return $category;
+        if(!$category["name"]) {
+            return "Aucune catégorie";
+        }
+        return $category["name"];
     }
 
     public function save()
@@ -139,12 +160,41 @@ class Product extends Database
         parent::save();
     }
 
-    public function getFormProduct($value = []): array
+    public function getFormProduct($value = null, $actionType = null): array
     {
+        $category = new Category();
+        $sql = $category->select($category->getTable())->getQuery();
+        $categories = $category->fetchQuery($sql);
+
+        if($actionType == "delete") {
+            return [
+                "config" => [
+                    "method" => "POST",
+                    "action" => "",
+                    "uploadform" => "multipart/form-data",
+                    "submit" => "Supprimer",
+                    "class" => "delete",
+                ],
+                "inputs" => [
+                    "delete" => [
+                        "type" => "hidden",
+                        "name" => "delete",
+                        "value" => "true",
+                    ],
+                    "id" => [
+                        "type" => "hidden",
+                        "name" => "id",
+                        "value" => $value["id"],
+                    ],
+                ],
+            ];
+        }
+
         return [
             "config" => [
                 "method" => "POST",
                 "action" => "",
+                "uploadform" => "multipart/form-data",
                 "submit" => isset($value) ? "Modifier" : "Ajouter",
             ],
             "inputs" => [
@@ -197,16 +247,26 @@ class Product extends Database
                     "error" => "La quantité doit être compris entre 0 et 999",
                     "required" => true,
                 ],
-                // "category_id" => [
-                //     "type" => "select",
-                //     "id" => "product_category_id",
-                //     "class" => "product_category_id",
-                //     "error" => "La catégorie doit être sélectionnée",
-                //     "required" => true,
-                // ],
+                "select" => [
+                    "label" => "Catégorie",
+                    "options" => $categories,
+                    "type" => "select",
+                    "id" => "category_id",
+                    "class" => "category_id",
+                    "error" => "La catégorie doit être sélectionnée",
+                    "required" => true,
+                ],
+                "upload" => [
+                    "label" => "Image",
+                    "name" => "product_image",
+                    "data" => $value["image"] ?? "",
+                    "type" => "file",
+                    "id" => "product_image",
+                    "class" => "product_image",
+                    "error" => "L'image doit être sélectionnée",
+                    "required" => false,
+                ],
             ]
-
         ];
     }
-
 }

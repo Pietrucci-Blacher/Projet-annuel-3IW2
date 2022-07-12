@@ -2,12 +2,14 @@
 <html lang="fr">
 
 <head>
-    <?php include("includes/head.view.php") ?>
+  <?php include("includes/head.view.php") ?>
 </head>
 
 <body>
-
+  <?php include("partial/menuFront.partial.php"); ?>
+  <div class="layout">
     <?php include $this->view . ".view.php"; ?>
+  </div>
 
 </body>
 

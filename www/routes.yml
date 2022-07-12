@@ -58,20 +58,25 @@
 
 
 # PagesController
+/pages:
+  controller: pages
+  action: main 
+  roles: ['admin', 'user']
+
 /admin/pages:
   controller: pages
-  action: main
-  roles: ["admin"]
+  action: admin
+  roles: ['admin']
 
-/admin/page/new:
+/admin/pages/add:
   controller: pages
   action: add
-  roles: ["admin"]
+  roles: ['admin']
 
-/admin/page:
+/admin/pages/edit:
   controller: pages
   action: edit
-  roles: ["admin"]  
+  roles: ['admin']
 
 # ProductController
 /admin/products:
@@ -89,11 +94,31 @@
   action: edit
   roles: ["admin"]
 
+# CategoriesController
+/admin/category/new:
+  controller: categories
+  action: add
+  roles: ["admin"]
+
+/admin/category:
+  controller: categories
+  action: edit
+  roles: ["admin"]
+
+  
+
 # CommentsController
 /admin/comments:
   controller: comments
   action: main
   roles: ["admin"]
+
+# /admin/comment:
+#   controller: comments
+#   action: delete
+#   roles: ["admin"]
+
+
 
 # CustomizationController
 /admin/customization:

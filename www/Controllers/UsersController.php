@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Core\View;
+use App\Core\Session;
 use App\Models\User;
 
 class UsersController
@@ -15,7 +16,7 @@ class UsersController
     $view = new View("users/main", "back");
     $view->assign('users', $users);
 
-    $headers = ["id", "Nom", "Prénom", "Compte confirmé", "Role"];
+    $headers = ["id", "Nom", "Prénom", "Email", "Compte confirmé", "Role"];
     $view->assign('headers', $headers);
   }
 
@@ -25,10 +26,14 @@ class UsersController
 
     $userModel = new User();
     $view->assign('userModel', $userModel);
-    var_dump($_GET["id"]);
     if (!empty($_GET["id"])) {
       $user = $userModel->find(['id' => $_GET['id']]);
-      $view->assign('user', $user);
+      if(!empty($user)) {
+        $view->assign('user', $user);
+      } else {
+        Session::addMessage("EDIT_USER_NOT_FOUND", "L'utilisateur n'existe pas", "error");
+        header('location: /admin/users');
+      }
     } else {
       header('location: /admin/users');
     }
@@ -41,6 +46,7 @@ class UsersController
       ])->where('id', $_GET['id'])->getQuery();
 
       $userModel->executeQuery($update);
+      Session::addMessage("EDIT_USER_SUCCESS", "L'utilisateur a bien été modifié", "success");
 
       header('location: /admin/users');
     }

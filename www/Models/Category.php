@@ -45,4 +45,29 @@ class Category extends Database
         parent::save();
     }
 
+    public function getFormCategory($value = []): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "submit" => isset($value) ? "Modifier" : "Ajouter",
+            ],
+            "inputs" => [
+                "name" => [
+                    "label" => "Nom",
+                    "value" => $value["name"] ?? "",
+                    "type" => "text",
+                    "placeholder" => "Nom de la catégorie ...",
+                    "id" => "category_name",
+                    "class" => "category_name",
+                    "min" => 3,
+                    "max" => 50,
+                    "error" => "Le nom de la catégorie doit au moins contenir 3 caractères",
+                    "required" => true
+                ],
+            ]
+        ];
+    }
+
 }

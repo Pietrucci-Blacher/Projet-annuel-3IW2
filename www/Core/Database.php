@@ -80,8 +80,11 @@ class MysqlBuilder implements QueryBuilder
         return $this;
     }
 
-    public function select(string $table, array $columns): QueryBuilder
+    public function select(string $table, array $columns = null): QueryBuilder
     {
+        if(!$columns){
+            $columns = ["*"];
+        }
         $this->reset();
         $this->query->base = "SELECT " . implode(", ", $columns) . " FROM " . $table;
         return $this;
@@ -262,5 +265,12 @@ class Database extends MysqlBuilder
         $get_class = get_class($this);
         $query = $this->buildQuery($parameters, $whereConditions, $whereClause, $order, $orderConditions, $orderClause);
         return $query->fetchAll(\PDO::FETCH_CLASS, $get_class);
+    }
+
+    public function delete($id)
+    {
+        $sql = "DELETE FROM ".$this->table." WHERE id=:id";
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute( ["id"=>$id] );
     }
 }
