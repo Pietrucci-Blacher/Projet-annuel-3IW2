@@ -1,6 +1,6 @@
 <section class="users">
   <h1>Users</h1>
-
+  <?php $this->includePartial("message") ?>
   <table id="usersTable" class="styled-table">
     <thead>
       <tr>
@@ -11,19 +11,17 @@
     </thead>
     <tbody>
       <?php foreach ($users as $user) : ?>
-
         <tr class="styled-row" onclick="redirectToEdit(<?= $user->getId() ?>)">
           <td><?= $user->getId() ?> </td>
           <td><?= $user->getFirstname() ?></td>
           <td><?= $user->getLastname() ?></td>
+          <td><?= $user->getEmail() ?></td>
           <td><?= $user->getStatus() ?></td>
           <td><?= $user->getRole() ?></td>
         </tr>
       <?php endforeach; ?>
     </tbody>
   </table>
-
-
 </section>
 <script>
   $(document).ready(function() {

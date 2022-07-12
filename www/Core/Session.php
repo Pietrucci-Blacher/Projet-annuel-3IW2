@@ -9,6 +9,12 @@ class Session
 		$_SESSION[$name] = $value;
 	}
 
+	public static function addMessage($name, $text, $type) {
+		$_SESSION["messages"][] = [$name => [
+			["text" => $text, "type" => $type]
+		]];
+	}
+
 	public static function delete($name) {
 		$_SESSION[$name] = null;
 	}
@@ -16,12 +22,6 @@ class Session
 	public static function get($name) {
 		return $_SESSION[$name];
 	}
-
-	// public static function flash($name) {
-	// 	$session = $_SESSION[$name] ?? [];
-	// 	unset($_SESSION[$name]);
-	// 	return $session;
-	// }
 
 	public static function exist($name) {
 		return isset($_SESSION[$name]);

@@ -1,3 +1,6 @@
 <section class="pages">
-  <h1>Pages</h1>
+  <h1><?= $page['name'] ?></h1>
+  <div>
+    <?= $page['content'] ?>
+  </div>
 </section>
