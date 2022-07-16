@@ -52,6 +52,10 @@
                     <input id="dbadress" type="text" name="dbadress"/>
                 </div>
                 <div class="input-group col-4">
+                    <label for="dbport">Port de la base de données</label>
+                    <input id="dbport" type="number" name="dbport"/>
+                </div>
+                <div class="input-group col-4">
                     <label for="dbprefix"> Préfixe des tables</label>
                     <input type="text" name="dbprefix" id="dbprefix" />
                 </div>

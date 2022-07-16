@@ -23,13 +23,12 @@ class MysqlBuilder implements QueryBuilder
 
     public function __construct()
     {
-        //Faudra intégrer le singleton
         try{
             //Connexion à la base de données
             $this->pdo = new \PDO("mysql:host=".Config::getInstance()->get('db_host').";port=".Config::getInstance()->get('db_port').";dbname=".Config::getInstance()->get('db_name') ,Config::getInstance()->get('db_user') , Config::getInstance()->get('db_pwd') );
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         }catch(\Exception $e){
-            die("Erreur SQL".$e->getMessage());
+            die("Erreur SQL : ".$e->getMessage());
         }
 
     }
@@ -155,7 +154,7 @@ class Database extends MysqlBuilder
 
         try{
             //Connexion à la base de données
-            $this->pdo = new \PDO( Config::getInstance()->get('').":host=".DBHOST.";port=".DBPORT.";dbname=".DBNAME ,DBUSER , DBPWD );
+            $this->pdo = new \PDO("mysql:host=".Config::getInstance()->get('db_host').";port=".Config::getInstance()->get('db_port').";dbname=".Config::getInstance()->get('db_name') ,Config::getInstance()->get('db_user') , Config::getInstance()->get('db_pwd') );
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         }catch(\Exception $e){
             die("Erreur SQL".$e->getMessage());
@@ -184,7 +183,6 @@ class Database extends MysqlBuilder
         return $queryPrepared->fetchObject(get_called_class());
     }
 
-
     protected function save()
     {
 
@@ -194,15 +192,15 @@ class Database extends MysqlBuilder
         $columns = array_filter($columns);
 
 
-       if( !is_null($this->getId()) ){
-           foreach ($columns as $key=>$value){
+        if( !is_null($this->getId()) ){
+            foreach ($columns as $key=>$value){
                 $setUpdate[]=$key."=:".$key;
-           }
-           $sql = "UPDATE ".$this->table." SET ".implode(",",$setUpdate)." WHERE id=".$this->getId();
-       }else{
+            }
+            $sql = "UPDATE ".$this->table." SET ".implode(",",$setUpdate)." WHERE id=".$this->getId();
+        }else{
             $sql = "INSERT INTO ".$this->table." (".implode(",", array_keys($columns)).")
             VALUES (:".implode(",:", array_keys($columns)).")";
-       }
+        }
 
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute( $columns );
@@ -230,6 +228,80 @@ class Database extends MysqlBuilder
             return null;
         }
 
-        return false;
+    }
+
+    public function buildQuery($parameters, $whereConditions, $whereClause, $order, $orderConditions, $orderClause)
+    {
+        $query = "SELECT * FROM ". strtolower($this->table);
+        if (!empty($parameters)) {
+            foreach ($parameters as $key => $value) {
+                $whereConditions[] = "`$key` = '$value'";
+            }
+
+            $whereClause = ' WHERE ' . implode(' AND ', $whereConditions);
+        }
+
+        if (!is_null($order)) {
+            foreach ($order as $key => $value) {
+                $orderConditions[] = "$key " . strtoupper($value);
+            }
+
+            $orderClause = ' ORDER BY ' . implode(', ', $orderConditions);
+        }
+
+        return $this->pdo->query($query . $whereClause . (!empty($order) ? $orderClause : ''));
+    }
+
+    public function findAll($parameters = [], $order = [])
+    {
+        $whereClause = $orderClause = '';
+        $whereConditions = $orderConditions =[];
+        $get_class = get_class($this);
+        $query = $this->buildQuery($parameters, $whereConditions, $whereClause, $order, $orderConditions, $orderClause);
+        return $query->fetchAll(\PDO::FETCH_CLASS, $get_class);
+    }
+
+    public function readTables()
+    {
+        $file = dirname(__DIR__) . '/tables.json';
+        $str = file_get_contents($file);
+        return json_decode($str, true);
+    }
+
+
+    public function generateTables(){
+        $this->checkJSONfile();
+        $tables = $this->readTables();
+        foreach ($tables as $table) {
+            $fields = [];
+            $tableName = $table["name"];
+            $tableFields = $table["fields"];
+
+            foreach ($tableFields as $fieldcolumn) {
+                $fields[] = "`" . $fieldcolumn['name'] . "` " . strtoupper($fieldcolumn['type']) . " " . implode(" ", explode('.', $fieldcolumn['attributes']));
+            }
+            try {
+                $sql = "CREATE TABLE IF NOT EXISTS `" . $tableName . "` (" . implode(", ", $fields) . ")";
+                $this->pdo->exec($sql);
+            } catch (\PDOException $e) {
+                print_r('Erreur :, ' . $e->getMessage());
+            }
+        }
+    }
+
+    public function checkJSONfile()
+    {
+        $file = dirname(__DIR__) . '/tables.json';
+        if (!file_exists($file)) {
+            $fhtables = fopen($file, 'w');
+            fclose($fhtables);
+        }else{
+            die('Le fichier tables.json existe déjà');
+        }
+        if (is_readable($file) && is_writable($file)) {
+            return true;
+        } else {
+            die("Erreur lors de la creation des tables");
+        }
     }
 }

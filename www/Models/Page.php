@@ -6,12 +6,12 @@ use App\Core\Database;
 
 class Page extends Database
 {
-    public int $id;
-    public string $name;
-    public string $link;
-    public int $index;
-    public int $status;
+    public $id;
+    public $name;
+    public $link;
+    public $indexing;
     public $createdAt;
+
     public function __construct()
     {
         parent::__construct();
@@ -62,7 +62,7 @@ class Page extends Database
      */
     public function setIndex($index)
     {
-        $this->index = $index;
+        $this->indexing = $index;
     }
 
     /**
@@ -70,23 +70,7 @@ class Page extends Database
      */
     public function getIndex()
     {
-        return $this->index;
-    }
-
-    /**
-     * @param int $status
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
-
-    /**
-     * @return int
-     */
-    public function getStatus()
-    {
-        return $this->status;
+        return $this->indexing;
     }
 
     /**
@@ -101,5 +85,4 @@ class Page extends Database
     {
         parent::save();
     }
-
 }

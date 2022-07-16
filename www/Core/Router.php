@@ -63,7 +63,7 @@ class Router
         $this->uri = $uri;
     }
 
-    public function getAllRoutes(): array
+    public static function getAllRoutes(): array
     {
         return yaml_parse_file(self::ROUTE_FILE);
     }
@@ -80,11 +80,11 @@ class Router
                     $execAction = $this->getAction();
                     //Vérification du role
                     //Security::Authorization($this->getRole());
-                    //Vérification du setup ici
-                    /*if(!Config::getInstance()->get('app_setup')){
-                        header('location: /setup', 303);
-                    }*/
-
+                    if(!Config::getInstance()->get('app_setup') && $this->uri !== '/setup'){
+                            header('Location: /setup',303);
+                    }elseif(Config::getInstance()->get('app_setup') && $this->uri !== '/setup'){
+                            header('Location: /login', 303);
+                    }
                     $classObj->$execAction();
                 } else {
                     //Controller Erreur
@@ -93,7 +93,7 @@ class Router
                 //Controller Erreur
             }
         } else {
-            //Controller Erreur
         }
+            //Controller Erreur
     }
 }

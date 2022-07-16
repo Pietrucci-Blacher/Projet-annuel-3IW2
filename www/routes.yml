@@ -1,6 +1,7 @@
 /:
   controller: general
   action: home
+  roles: []
 
 /me-contacter:
   controller: general
@@ -9,6 +10,7 @@
 /login:
   controller: security
   action: login
+  roles: []
 
 /forgot-password:
   controller: security
