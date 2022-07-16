@@ -6,8 +6,6 @@ use App\Core\Database;
 
 class Page extends Database
 {
-
-
   protected $id = null;
   protected $name;
   protected $link;
@@ -19,6 +17,7 @@ class Page extends Database
   {
     parent::__construct();
   }
+
 
   /**
    * Get the value of id
@@ -81,7 +80,7 @@ class Page extends Database
      */
     public function setIndex($index)
     {
-        $this->index = $index;
+        $this->indexing = $index;
     }
 
     /**
@@ -89,23 +88,7 @@ class Page extends Database
      */
     public function getIndex()
     {
-        return $this->index;
-    }
-
-    /**
-     * @param int $status
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
-
-    /**
-     * @return int
-     */
-    public function getStatus()
-    {
-        return $this->status;
+        return $this->indexing;
     }
 
     /**
@@ -159,6 +142,4 @@ class Page extends Database
     ];
   }
 }
-
-
 

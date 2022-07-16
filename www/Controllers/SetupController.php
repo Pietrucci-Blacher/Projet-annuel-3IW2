@@ -26,7 +26,7 @@ class SetupController
             $datavalid = true;
             if ($datavalid) {
                 $config = Config::getInstance();
-                $config->saveConfig(['app_name' =>$websitename, 'app_email' => $emailadmin,'db_name' => $dbname,  'db_login' => $dblogin, 'db_pwd' => $dbpwd, 'db_host' => $dbadress, 'db_prefix' => $dbprefix, 'app_setup' => true]);
+                $config->saveConfig(['app_name' => $websitename, 'app_email' => $emailadmin, 'db_name' => $dbname, 'db_login' => $dblogin, 'db_pwd' => $dbpwd, 'db_host' => $dbadress, 'db_prefix' => $dbprefix, 'app_setup' => true]);
                 $this->initAllPages();
             }
 
@@ -34,15 +34,14 @@ class SetupController
     }
 
 
-
     public function initAllPages()
     {
         $pages = new Page;
         $routes = Router::getAllRoutes();
         foreach ($routes as $route => $value) {
-            if($route == '/'){
+            if ($route == '/') {
                 $pages->setName('Index');
-            }else{
+            } else {
                 $routename = str_replace('/', '', $route);
                 $pages->setName($routename);
             }
@@ -57,11 +56,11 @@ class SetupController
     public function formGeninfo()
     {
         return [
-            "config"=>[
-                "method"=>"POST",
+            "config" => [
+                "method" => "POST",
                 "uploadform" => false,
-                "action"=>"",
-                "submit"=>"S'inscrire"
+                "action" => "",
+                "submit" => "S'inscrire"
             ],
             "inputs" => [
 
