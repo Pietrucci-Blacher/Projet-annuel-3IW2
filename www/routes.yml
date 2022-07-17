@@ -1,51 +1,133 @@
+# HomeController
 /:
-  controller: general
-  action: home
+  controller: home
+  action: main
+  roles: []
+
+/product:
+  controller: home
+  action: main
+  roles: []
 
 /me-contacter:
-  controller: general
+  controller: home
   action: contact
+  roles: []
 
+# SecurityController
 /login:
   controller: security
   action: login
+  roles: []
 
 /forgot-password:
   controller: security
   action: resetPassword
+  roles: []
 
 /logout:
   controller: security
   action: logout
+  roles: []
 
 /register:
   controller: security
   action: register
+  roles: []
 
+# DashboardController
 /admin:
-  controller: admin
-  action: dashboard
+  controller: dashboard
+  action: main
+  roles: ["admin"]
 
 /admin/dashboard:
-  controller: admin
-  action: dashboard
+  controller: dashboard
+  action: main
+  roles: ["admin"]
 
+# UsersController
 /admin/users:
   controller: users
-  action: users
+  action: main
+  roles: ["admin"]
+
+/admin/user/new:
+  controller: users
+  action: add
+  roles: ["admin"]
+
+/admin/users/edit:
+  controller: users
+  action: edit
+  roles: ["admin"]  
+
+
+# PagesController
+/pages:
+  controller: pages
+  action: main 
+  roles: ['admin', 'user']
 
 /admin/pages:
   controller: pages
-  action: pages
+  action: admin
+  roles: ['admin']
 
+/admin/pages/add:
+  controller: pages
+  action: add
+  roles: ['admin']
+
+/admin/pages/edit:
+  controller: pages
+  action: edit
+  roles: ['admin']
+
+# ProductController
 /admin/products:
   controller: products
-  action: products
+  action: main
+  roles: ["admin"]
 
+/admin/product/new:
+  controller: products
+  action: add
+  roles: ["admin"]
+
+/admin/product:
+  controller: products
+  action: edit
+  roles: ["admin"]
+
+# CategoriesController
+/admin/category/new:
+  controller: categories
+  action: add
+  roles: ["admin"]
+
+/admin/category:
+  controller: categories
+  action: edit
+  roles: ["admin"]
+
+  
+
+# CommentsController
 /admin/comments:
   controller: comments
-  action: comments
+  action: main
+  roles: ["admin"]
 
+# /admin/comment:
+#   controller: comments
+#   action: delete
+#   roles: ["admin"]
+
+
+
+# CustomizationController
 /admin/customization:
   controller: customization
-  action: customization
+  action: main
+  roles: ["admin"]

@@ -1,0 +1,10 @@
+.product-list {
+    &__cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+    &__card {
+        flex: 1 1 calc(33.333333% - 2em);
+    }
+}

@@ -12,6 +12,7 @@ class View
     {
         $this->setView($view);
         $this->setTemplate($template);
+        $this->assign("_S", Session::class);
     }
 
     public function setView($view):void
@@ -29,7 +30,7 @@ class View
         $this->data[$key] = $value;
     }
 
-    public function includePartial($name, $config):void
+    public function includePartial($name, $config = null):void
     {
         if(!file_exists("views/partial/".$name.".partial.php"))
         {

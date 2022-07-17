@@ -9,8 +9,6 @@ use App\Core\Security;
 use App\Core\Helpers;
 use App\Core\Session;
 
-use function PHPSTORM_META\type;
-
 class SecurityController
 {
     public function login()

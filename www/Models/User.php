@@ -15,6 +15,7 @@ class User extends Database
     protected $status = null;
     protected $token = null;
     protected $confirmed;
+    protected $role;
 
     public function __construct()
     {
@@ -125,6 +126,16 @@ class User extends Database
     public function setToken($token): void
     {
         $this->token = $token;
+    }
+
+    public function setRole($role): void
+    {
+        $this->role = $role;
+    }
+
+    public function getRole(): string
+    {
+        return $this->role;
     }
 
 
@@ -278,6 +289,71 @@ class User extends Database
 
             ]
 
+        ];
+    }
+
+
+    public function getFormEditUser($value = []): array
+    {
+
+
+        $roles = [
+            ["value" => "admin", "name" => "Admin", "selected" => $value["role"] == "admin"],
+            ["value" => "user", "name" => "User", "selected" => $value["role"] == "user"],
+        ];
+
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "uploadform" => "multipart/form-data",
+                "submit" => "Modifier"
+            ],
+            "inputs" => [
+                "email" => [
+                    "label" => "Email",
+                    "type" => "email",
+                    "placeholder" => "Votre email ...",
+                    "value" => $value["email"] ?? "",
+                    "id" => "emailRegister",
+                    "class" => "inputRegister",
+                    "required" => true,
+                    "error" => "Email incorrect",
+                    "unicity" => true,
+                    "errorUnicity" => "Email existe déjà en bdd"
+                ],
+                "firstname" => [
+                    "label" => "Prénom",
+                    "type" => "text",
+                    "placeholder" => "Prénom ...",
+                    "value" => $value["firstname"] ?? "",
+                    "id" => "firstnameRegister",
+                    "class" => "inputRegister",
+                    "min" => 2,
+                    "max" => 50,
+                    "error" => "Votre prénom n'est pas correct",
+                ],
+                "lastname" => [
+                    "label" => "Nom",
+                    "type" => "text",
+                    "placeholder" => "Nom ...",
+                    "value" => $value["lastname"] ?? "",
+                    "id" => "lastnameRegister",
+                    "class" => "inputRegister",
+                    "min" => 2,
+                    "max" => 100,
+                    "error" => "Votre nom n'est pas correct",
+                ],
+                "select" => [
+                    "label" => "Rôle",
+                    "options" => $roles,
+                    "type" => "select",
+                    "id" => "role",
+                    "class" => "role",
+                    "error" => "Le rôle doit être sélectionnée",
+                    "required" => true,
+                ],
+            ],
         ];
     }
 }

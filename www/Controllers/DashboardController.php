@@ -7,9 +7,9 @@ use App\Models\User as UserModel;
 use App\Core\Session;
 
 
-class AdminController
+class DashboardController
 {
-    public function dashboard()
+    public function main()
     {
 
         if(!Session::get('user')) {
@@ -22,7 +22,7 @@ class AdminController
         $firstname = $user["firstname"];
         $lastname = $user["lastname"];
 
-        $view = new View("dashboard", "back");
+        $view = new View("dashboard/main", "back");
         $view->assign("firstname", $firstname);
         $view->assign("lastname", $lastname);
 
