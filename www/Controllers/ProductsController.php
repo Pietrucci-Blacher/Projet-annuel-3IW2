@@ -48,6 +48,7 @@ class ProductsController
       $product->setPrice($_POST["price"]);
       $product->setQuantity($_POST["quantity"]);
       $product->setCategoryId($_POST["category_id"]);
+      $_POST["is_published"] && $product->setIsPublished($_POST["is_published"]);
       $product->save();
 
       Session::addMessage("ADD_PRODUCT_SUCCESS", "Le produit a bien été ajouté", "success");
@@ -62,7 +63,6 @@ class ProductsController
     $productModel = new Product();
     $view->assign("productModel", $productModel);
 
-
     if (!empty($_GET["id"])) {
       $product = $productModel->find(['id' => $_GET["id"]]);
       if(!empty($product)) {
@@ -75,6 +75,7 @@ class ProductsController
       header('location: /admin/products');
     }
 
+    // delete product
     if (isset($_POST["delete"]) && isset($_POST["id"])) {
       $product = $productModel->find(['id' => $_POST["id"]]);
       if(!empty($product)) {
@@ -84,9 +85,10 @@ class ProductsController
       }
     }
 
+    // update product
     if (!empty($_GET["id"]) && !empty($_POST)) {
       if (!empty($_FILES["product_image"]["name"])) {
-
+        // if image uploaded
         if ($_FILES["product_image"]["type"] == "image/jpeg" || $_FILES["product_image"]["type"] == "image/png") {
           $image = $_FILES["product_image"]["tmp_name"];
           $data = base64_encode(file_get_contents(addslashes($image)));
@@ -97,13 +99,14 @@ class ProductsController
             'quantity' => $_POST["quantity"],
             'category_id' => $_POST["category_id"],
             'image' => "'{$data}'",
+            'is_published' => $_POST["is_published"] ?? $product["is_published"],
           ])->where("id", $_GET["id"])->getQuery();
           $productModel->executeQuery($update);
           Session::addMessage("EDIT_PRODUCT_SUCCESS", "Le produit a bien été modifié", "success");
           header('location: /admin/products');
         } else {
           Session::addMessage("EDIT_PRODUCT_IMAGE_ERROR", "Votre image doit être au format jpeg ou png", "error");
-        }
+        }  
       } else {
         $update = $productModel->update($productModel->getTable(), [
           'name' => "'{$_POST["name"]}'",
@@ -111,6 +114,7 @@ class ProductsController
           'price' => $_POST["price"],
           'quantity' => $_POST["quantity"],
           'category_id' => $_POST["category_id"],
+          'is_published' => $_POST["is_published"] ?? 0,
         ])->where("id", $_GET["id"])->getQuery();
 
         $productModel->executeQuery($update);

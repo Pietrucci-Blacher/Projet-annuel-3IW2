@@ -42,7 +42,8 @@ class UsersController
       $update = $userModel->update($userModel->getTable(), [
         'firstname' => "'{$_POST['firstname']}'",
         'lastname' => "'{$_POST['lastname']}'",
-        'email' => "'{$_POST['email']}'"
+        'email' => "'{$_POST['email']}'",
+        'role' => "'{$_POST['role']}'",
       ])->where('id', $_GET['id'])->getQuery();
 
       $userModel->executeQuery($update);

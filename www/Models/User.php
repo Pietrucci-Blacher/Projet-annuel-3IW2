@@ -292,9 +292,16 @@ class User extends Database
         ];
     }
 
-    
+
     public function getFormEditUser($value = []): array
     {
+
+
+        $roles = [
+            ["value" => "admin", "name" => "Admin", "selected" => $value["role"] == "admin"],
+            ["value" => "user", "name" => "User", "selected" => $value["role"] == "user"],
+        ];
+
         return [
             "config" => [
                 "method" => "POST",
@@ -304,6 +311,7 @@ class User extends Database
             ],
             "inputs" => [
                 "email" => [
+                    "label" => "Email",
                     "type" => "email",
                     "placeholder" => "Votre email ...",
                     "value" => $value["email"] ?? "",
@@ -315,6 +323,7 @@ class User extends Database
                     "errorUnicity" => "Email existe déjà en bdd"
                 ],
                 "firstname" => [
+                    "label" => "Prénom",
                     "type" => "text",
                     "placeholder" => "Prénom ...",
                     "value" => $value["firstname"] ?? "",
@@ -325,6 +334,7 @@ class User extends Database
                     "error" => "Votre prénom n'est pas correct",
                 ],
                 "lastname" => [
+                    "label" => "Nom",
                     "type" => "text",
                     "placeholder" => "Nom ...",
                     "value" => $value["lastname"] ?? "",
@@ -333,6 +343,15 @@ class User extends Database
                     "min" => 2,
                     "max" => 100,
                     "error" => "Votre nom n'est pas correct",
+                ],
+                "select" => [
+                    "label" => "Rôle",
+                    "options" => $roles,
+                    "type" => "select",
+                    "id" => "role",
+                    "class" => "role",
+                    "error" => "Le rôle doit être sélectionnée",
+                    "required" => true,
                 ],
             ],
         ];

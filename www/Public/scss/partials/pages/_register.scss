@@ -1,0 +1,13 @@
+.register, .login {
+    height: 100vh;
+    &__container {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        background: white;
+        border-radius: 10px;
+        padding: 50px;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+    }
+}

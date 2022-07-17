@@ -1,10 +1,16 @@
+# HomeController
 /:
-  controller: general
-  action: home
+  controller: home
+  action: main
+  roles: []
+
+/product:
+  controller: home
+  action: main
   roles: []
 
 /me-contacter:
-  controller: general
+  controller: home
   action: contact
   roles: []
 

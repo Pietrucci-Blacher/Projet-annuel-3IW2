@@ -4,11 +4,15 @@
 @import "partials/functions";
 @import "partials/global";
 
-
 @import "partials/components/input";
+@import "partials/components/card";
 @import "partials/components/table";
-@import "partials/blocks/dashboard";
-@import "partials/blocks/register";
-@import "partials/blocks/login";
-@import "partials/blocks/articles";
-@import "partials/blocks/products";
+@import "partials/components/modal";
+@import "partials/components/menu_front";
+
+@import "partials/pages/home";
+@import "partials/pages/dashboard";
+@import "partials/pages/register";
+@import "partials/pages/login";
+@import "partials/pages/articles";
+@import "partials/pages/products";

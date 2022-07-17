@@ -6,8 +6,8 @@
 </head>
 
 <body>
-  <?php include("partial/menuFront.partial.php"); ?>
-  <div class="layout">
+  <?php include("partial/menutest.partial.php"); ?>
+  <div class="front container">
     <?php include $this->view . ".view.php"; ?>
   </div>
 
