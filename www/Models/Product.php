@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Core\Database;
 use App\Models\Category;
+use App\Models\Comment;
 
 class Product extends Database
 {
@@ -66,7 +67,7 @@ class Product extends Database
     /**
      * Get the value of price
      */
-    public function getPrice(): float
+    public function getPrice(): string
     {
         return $this->price;
     }
@@ -163,8 +164,29 @@ class Product extends Database
     public function getFormProduct($value = null, $actionType = null): array
     {
         $category = new Category();
-        $sql = $category->select($category->getTable())->getQuery();
-        $categories = $category->fetchQuery($sql);
+
+
+        $categories = $category->findAll();
+
+        $options = [];
+        foreach($categories as $category) {
+            $options[] = [
+                "id" => $category->getId(),
+                "name" => $category->getName(),
+                "value" => $category->getId(),
+                "selected" => $category->getId() == $value["category_id"]
+            ];  
+        }
+
+
+        $item = [
+            [
+                "id" => "is_published",
+                "name" => "is_published",
+                "value" => 1,
+            ]
+        ];
+
 
         if($actionType == "delete") {
             return [
@@ -249,7 +271,7 @@ class Product extends Database
                 ],
                 "select" => [
                     "label" => "Catégorie",
-                    "options" => $categories,
+                    "options" => $options,
                     "type" => "select",
                     "id" => "category_id",
                     "class" => "category_id",
@@ -264,6 +286,15 @@ class Product extends Database
                     "id" => "product_image",
                     "class" => "product_image",
                     "error" => "L'image doit être sélectionnée",
+                    "required" => false,
+                ],
+                "checkboxes" => [
+                    "label" => "Publié",
+                    "items" => $item,
+                    "checked" => $value["is_published"] ? true : false,
+                    "type" => "checkbox",
+                    "id" => "product_published",
+                    "class" => "product_published",
                     "required" => false,
                 ],
             ]

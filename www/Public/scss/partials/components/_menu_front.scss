@@ -1,0 +1,107 @@
+.header {
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    background-color: #912105;
+  }
+  .header__container {
+    padding: 0 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 70px;
+  }
+  .header__logo {
+    border-radius: 50%;
+    background-color: #fff;
+    position: relative;
+    z-index: 5;
+    width: 40px;
+    height: 40px;
+  }
+  .menu__icon {
+    display: none;
+  }
+  .menu__list > li {
+    position: relative;
+    margin-left: 20px;
+  }
+  .menu__link {
+    color: #fff;
+    font-size: 18px;
+  }
+  .menu__sub-list {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #000;
+    padding: 15px;
+    min-width: 200px;
+  }
+  .menu__sub-list li {
+    margin-bottom: 10px;
+  }
+  .menu__sub-list li:last-child {
+    margin-bottom: 0px;
+  }
+  .menu__sub-link {
+    color: #fff;
+  }
+  .menu__sub-link:hover {
+    text-decoration: underline;
+  }
+  .menu__arrow {
+    display: none;
+  }
+  body._pc .menu__list > li:hover .menu__sub-list {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0, 0);
+    pointer-events: all;
+  }
+  body._touch .menu__list > li {
+    display: flex;
+    align-items: center;
+  }
+  body._touch .menu__link {
+    flex: 1 1 auto;
+  }
+  body._touch .menu__arrow {
+    display: block;
+    width: 0;
+    height: 0;
+    margin-left: 5px;
+    transition: transform 0.3s ease 0s;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 10px solid #fff;
+  }
+  body._touch .menu__list > li._active .menu__sub-list {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0, 0);
+    pointer-events: all;
+  }
+  body._touch .menu__list > li._active .menu__arrow {
+    transform: rotate(180deg);
+  }
+  @media (min-width: 767px) {
+    .menu__list {
+      display: flex;
+      align-items: center;
+    }
+    .menu__list > li {
+      padding: 10px 0;
+    }
+    .menu__sub-list {
+      transform: translate(0, 10px);
+      opacity: 0;
+      visibility: hidden;
+      /* to avoid mistaken hover */
+      pointer-events: none;
+      transition: all 0.3s ease 0s;
+    }
+  }

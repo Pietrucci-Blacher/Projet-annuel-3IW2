@@ -69,5 +69,4 @@ class Category extends Database
             ]
         ];
     }
-
 }

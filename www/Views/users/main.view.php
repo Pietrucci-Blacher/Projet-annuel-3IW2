@@ -16,7 +16,7 @@
           <td><?= $user->getFirstname() ?></td>
           <td><?= $user->getLastname() ?></td>
           <td><?= $user->getEmail() ?></td>
-          <td><?= $user->getStatus() ?></td>
+          <td><?= $user->getStatus() == 1 ? "Oui" : "Non" ?></td>
           <td><?= $user->getRole() ?></td>
         </tr>
       <?php endforeach; ?>
