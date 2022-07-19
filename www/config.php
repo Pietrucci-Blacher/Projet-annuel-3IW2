@@ -1,12 +1,12 @@
 <?php return [
   'database' => [
-    'db_name' => 'aaaaa',
+    'db_name' => 'database',
     'db_user' => 'root',
-    'db_pwd' => 'ccccce',
+    'db_pwd' => 'password',
     'db_driver' => 'mysql',
     'db_port' => '3306',
-    'db_host' => 'eeee',
-    'db_prefix' => 'aaaaaa',
+    'db_host' => 'localhost',
+    'db_prefix' => 'chiperz',
   ],
   'app' => [
     'app_name' => 'toto',

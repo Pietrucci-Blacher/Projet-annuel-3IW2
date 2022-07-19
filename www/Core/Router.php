@@ -86,20 +86,20 @@ class Router
                     }
 
                     //Vérification du setup ici
-                    if(!Config::getInstance()->get('app_setup') && !$this->uri !== '/setup'){
+                    /*if(!Config::getInstance()->get('app_setup') && !$this->uri !== '/setup'){
                         header('location: /setup', 303);
                     }elseif (Config::getInstance()->get('app_setup') && $this->uri === '/setup') {
                         header('location: /login', 303);
-                    }
+                    }*/
                     $classObj->$execAction();
                 } else {
-                    //Controller Erreur
+                    Session::addMessage("ERROR_ACTION","L'action " . $this->getAction() . " n'existe pas", "error");
                 }
             } else {
-                //Controller Erreur
+                Session::addMessage("ERROR_CONTROLLER_CLASS","La classe" . $controller_class . " dans le controller " . $this->getController() . " n'existe pas", "error");
             }
         } else {
+            Session::addMessage("ERROR_CONTROLLER","Le controller " . $this->getController() . " n'existe pas", "error");
         }
-            //Controller Erreur
     }
 }
