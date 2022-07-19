@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <?php include(__DIR__ . '/../partial/menu.partial.php'); ?>
+    <?php include(__DIR__ . '/../partial/menutest.partial.php'); ?>
     <div class="front container">
         <?php include __DIR__ .'/../' . $this->view. '.view.php';?>
     </div>

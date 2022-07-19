@@ -12,7 +12,7 @@ class SetupController
 {
     public function setup()
     {
-        $view = new View('setup');
+        $view = new View('setup', "blank");
         $view->setTitle('Setup de l\'application');
 
         if ($_POST) {

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <?php include("../includes/head.view.php") ?>
+    <title><?= $this->title ?? null ?></title>
+    <?php include(__DIR__ . '/../includes/head.view.php') ?>
 </head>
 <body>
 
