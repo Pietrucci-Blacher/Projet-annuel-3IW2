@@ -2,7 +2,7 @@
 
 <div class="product-list">
     <h1>Liste des produits</h1>
-    <?php if(count($products) > 0) : ?>
+    <?php if (count($products) > 0) : ?>
 
         <div class="product-list__cards">
             <?php foreach ($products as $product) : ?>
@@ -33,7 +33,8 @@
 <?php if (isset($productDetail)) : ?>
     <?php $this->includePartial("modalProduct", [
         "productDetail" => $productDetail,
-        "comments" => $comments
+        "comments" => $comments,
+        "commentModel" => $commentModel,
     ]); ?>
 <?php endif; ?>
 

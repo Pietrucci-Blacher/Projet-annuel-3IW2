@@ -26,6 +26,11 @@
                 </div>
             <?php endforeach; ?>
         </div>
+        <?php if (isset($_SESSION["user"])) : ?>
+            <div class="modal__comments__form">
+                <?php $this->includePartial("form", $config["commentModel"]->getFormAddComment()); ?>
+            </div>
+        <?php endif; ?>
     </div>
 
 </div>
