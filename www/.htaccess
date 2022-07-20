@@ -10,7 +10,7 @@ RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 RewriteCond %{HTTPS} off
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
-RewriteRule ^(Controllers/|Models/|Core/|Public/|Views/|routes\.yml) - [F,L,NC]
+RewriteRule ^(Controllers/|Models/|Core/|Views/|routes\.yml) - [F,L,NC]
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
