@@ -146,4 +146,23 @@ class Comment extends Database
             ];
         }
     }
+
+    public function getFormAddComment() {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "uploadform" => "multipart/form-data",
+                "submit" => "Ajouter",
+            ],
+            "inputs" => [
+                "text" => [
+                    "type" => "text",
+                    "name" => "text",
+                    "value" => "",
+                    "placeholder" => "Votre commentaire",
+                ],
+            ],
+        ];
+    }
 }

@@ -39,12 +39,27 @@ class HomeController
       ]);
       $productDetail = $product->find(["id" => $_GET["id"]]);
 
+      $commentModel = new Comment();
+      $view->assign('commentModel', $commentModel);
+
       $view->assign('productDetail', $productDetail);
       $view->assign('comments', $comments);
     }
 
     $view->assign('products', $products);
+
+    // add comment
+    if(isset($_POST["text"]) && isset($_GET["id"])) {
+      $comment = new Comment();
+      $comment->setText($_POST["text"]);
+      $comment->setProductId($_GET["id"]);
+      $comment->setUserId($_SESSION["user"]["id"]);
+      $comment->save();
+      header('location: /product?id='.$_GET["id"]);
+    }
   }
+
+
 
   public function contact()
   {

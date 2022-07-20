@@ -14,6 +14,19 @@
               </a>
             </li>
           <?php endforeach; ?>
+          <?php if(isset($_SESSION['user'])) : ?>
+            <li>
+              <a href="/logout" class="menu__sub-link">
+                Déconnexion
+              </a>
+            </li>
+          <?php else : ?>
+            <li>
+              <a href="/login" class="menu__sub-link">
+                Connexion
+              </a>
+            </li>
+          <?php endif; ?>
         </ul>
       </nav>
     </div>

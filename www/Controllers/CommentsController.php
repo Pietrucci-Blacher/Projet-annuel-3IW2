@@ -22,4 +22,17 @@ class CommentsController
       header('location: /admin/comments');
     }
   }
+
+  public function add() {
+    $view = new View("comments/add", "front");
+
+    if(isset($_POST["comment"])){
+      $comment = new Comment();
+      $comment->setText($_POST["text"]);
+      $comment->setProductId($_POST["product_id"]);
+      $comment->setUserId($_POST["user_id"]);
+      $comment->save();
+      header('location: /product?id='.$_POST["product_id"]);
+    }
+  }
 }

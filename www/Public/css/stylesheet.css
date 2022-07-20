@@ -96,6 +96,7 @@ form {
 
 .card__title {
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -199,6 +200,10 @@ form {
 
 .modal__comments {
   padding: 20px;
+}
+
+.modal__comments__form {
+  padding: 0 20px;
 }
 
 .modal__comment {
