@@ -118,30 +118,6 @@
         progress.style.width =
             ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
     }
-
-    /*const formulaire = document.querySelector('.formSetup');
-    formulaire.addEventListener('submit', (e) => {
-        e.preventDefault();
-    });
-    const button = document.querySelector('.btn-submit');
-    button.addEventListener('click', async () => {
-        //create init for fetch with the input value
-        const data = new FormData(formulaire);
-        for(var pair of data.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]);
-        }
-        const init = {
-            method: 'POST',
-            body: data,
-        };
-        //fetch the url with the init
-        const response = await fetch('/setup', init);
-        //get the json from the response
-        if(response.ok){
-            window.location.href = "/"
-        }
-
-    });*/
 </script>
 
 <style>
