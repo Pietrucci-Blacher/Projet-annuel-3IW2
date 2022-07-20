@@ -124,6 +124,10 @@
 #   action: delete
 #   roles: ["admin"]
 
+/admin/parameters:
+  controller: parameters
+  action: main
+  roles: ["admin"]
 
 
 # CustomizationController
@@ -135,4 +139,14 @@
 /setup:
   controller: setup
   action: setup
+  roles: []
+
+/sitemap:
+  controller: seo
+  action: displaySitemap
+  roles: []
+
+/robots:
+  controller: seo
+  action: displayRobots
   roles: []
