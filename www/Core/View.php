@@ -52,7 +52,7 @@ class View
     public function __destruct()
     {
         extract($this->data);
-        include "Views/".$this->template.".tpl.php";
+        include $this->template;
     }
 
 }
