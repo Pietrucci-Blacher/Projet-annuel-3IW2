@@ -33,3 +33,17 @@
         }
     }
 }
+
+.small-btn {
+    background: none;
+    background-color: red;
+    border-radius: 10px;
+    padding: 5px 10px;
+    color: white;
+    &--alert {
+        background-color: #C82333;
+        &:hover {
+            background-color: #871822;
+        }
+    }
+}

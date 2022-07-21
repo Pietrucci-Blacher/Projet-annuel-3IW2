@@ -52,6 +52,22 @@ form {
   background-color: #871822;
 }
 
+.small-btn {
+  background: none;
+  background-color: red;
+  border-radius: 10px;
+  padding: 5px 10px;
+  color: white;
+}
+
+.small-btn--alert {
+  background-color: #C82333;
+}
+
+.small-btn--alert:hover {
+  background-color: #871822;
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -208,6 +224,12 @@ form {
 
 .modal__comment {
   margin-bottom: 15px;
+}
+
+.modal__comment__actions {
+  display: flex;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
 }
 
 .modal__comment__author {

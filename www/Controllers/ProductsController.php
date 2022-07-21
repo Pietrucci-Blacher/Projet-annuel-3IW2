@@ -63,6 +63,8 @@ class ProductsController
     $productModel = new Product();
     $view->assign("productModel", $productModel);
 
+    
+    
     if (!empty($_GET["id"])) {
       $product = $productModel->find(['id' => $_GET["id"]]);
       if(!empty($product)) {
@@ -74,7 +76,7 @@ class ProductsController
     } else {
       header('location: /admin/products');
     }
-
+    
     // delete product
     if (isset($_POST["delete"]) && isset($_POST["id"])) {
       $product = $productModel->find(['id' => $_POST["id"]]);

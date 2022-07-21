@@ -16,7 +16,14 @@
           <td><?= $comment->getProductName() ?></td>
           <td><?= $comment->getText() ?></td>
           <td><?= $comment->getUserName() ?></td>
-          <td><?= $comment->getReports() ?></td>
+          <td>
+            <?php
+              $reportsCount = count($reportModel->findAll([
+                "comment_id" => $comment->getId()
+              ]));
+              echo $reportsCount;
+            ?>
+          </td>
           <td>
             <form method="post">
               <input type="hidden" name="id" value="<?= $comment->getId() ?>">

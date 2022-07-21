@@ -35,7 +35,9 @@
         "productDetail" => $productDetail,
         "comments" => $comments,
         "commentModel" => $commentModel,
+        "reportModel" => $reportModel
     ]); ?>
+
 <?php endif; ?>
 
 <script>
