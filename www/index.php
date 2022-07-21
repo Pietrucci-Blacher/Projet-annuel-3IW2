@@ -2,23 +2,19 @@
 namespace App;
 use App\Core\Router;
 
-require "conf.inc.php";
+use App\Core\AutoLoader;
 
+require 'Core/AutoLoader.php';
 
-function myAutoloader($class){
-    //$class = App\Core\CleanWords
-    $class = str_ireplace("App\\", "", $class);
-    //$class = Core\CleanWords
-    $class = str_ireplace("\\", "/", $class);
-    //$class = Core/CleanWords
-    if(file_exists($class.".php")){
-        include $class.".php";
-    }
-}
-
-spl_autoload_register("App\myAutoloader");
+AutoLoader::init();
 
 session_start();
+
+/*if(Config::getInstance()->get("dev_debug")) {
+    ini_set('display_errors', 1);
+}else{
+    ini_set('display_errors', 0)git;
+}*/
 
 $uri = strtok($_SERVER["REQUEST_URI"],'?');
 
