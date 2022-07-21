@@ -15,8 +15,7 @@ class HomeController
   public function main()
   {
     $view = new View("home/main", "front");
-    $view->assign("title", "Chiperz - Accueil");
-
+    $view->setTitle("Accueil");
     $page = new Page();
     $pages = $page->findAll();
 

@@ -125,3 +125,18 @@
   controller: customization
   action: main
   roles: ["admin"]
+
+/setup:
+  controller: setup
+  action: setup
+  roles: []
+
+/sitemap:
+  controller: seo
+  action: displaySitemap
+  roles: []
+
+/robots:
+  controller: seo
+  action: displayRobots
+  roles: []
