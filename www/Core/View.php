@@ -32,11 +32,11 @@ class View
 
     public function includePartial($name, $config = null):void
     {
-        if(!file_exists("views/partial/".$name.".partial.php"))
+        if(!file_exists("Views/partial/".$name.".partial.php"))
         {
             die("partial ".$name." 404");
         }
-        include "views/partial/".$name.".partial.php";
+        include "Views/partial/".$name.".partial.php";
     }
 
     public function setTitle($title):void{
@@ -45,9 +45,8 @@ class View
 
     public function __destruct()
     {
-        //Array ( [firstname] => Yves )
         extract($this->data);
-        include "views/".$this->template.".tpl.php";
+        include "Views/".$this->template.".tpl.php";
     }
 
 }
