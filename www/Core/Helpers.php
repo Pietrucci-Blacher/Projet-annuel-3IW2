@@ -12,7 +12,7 @@ class Helpers
         return $word;
     }
 
-    public static function mailer(array $from, array $to, string $subject, array $template_params, array $template_replace, bool $isHTML = true, string $body_template)
+    public static function mailer(array $from, array $to, string $subject, string $confirm_link, bool $isHTML = true)
     {
 
 
@@ -32,17 +32,11 @@ class Helpers
         $mail->addAddress($to['email'], $to['name']);
 
         $mail->Subject = $subject;
-        $mail->Body = $template_replace[4] . 'Click On This Link to Verify Email <a href="' . $template_replace[4] . '">fsdf</a>';
+        $mail->Body = 'Cliquez <a href="' . $confirm_link . '">ici</a> pour confirmer votre email';
 
-        // $message = str_replace(
-        // 	$template_params,
-        // 	$template_replace,
-        // 	file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/Views/Emails/' . $body_template . '.php')
-        // );
-        // $mail->msgHTML($message);
 
         if ($mail->send()) {
-            return ['error' => false, 'test' => $template_replace];
+            return ['error' => false, 'test' => $confirm_link];
         } else {
             return ['error' => true, 'error_message' => $mail->ErrorInfo];
         }

@@ -42,7 +42,7 @@ class SecurityController
                     $errors[] = "Mail ou mot de passe incorrect";
                     $view->assign("errors", $errors);
                 } else {
-                    if ($data["status"] == 1) {
+                    if ($data["status"] == 1) {    
                         Session::add('user', $data);
                         header('location: /admin/dashboard');
                     } else {
@@ -86,13 +86,13 @@ class SecurityController
                 $user->save();
 
                 $email = $_POST["email"];
-                $from = ['email' => "chiperz.esgi@gmail.com", 'name' => "toto"];
-                $to = ['email' => $email, 'name' => "benjamin"];
-                $subject = 'Chiperz Création de votre compte';
+                $from = ['email' => "chiperz.esgi@gmail.com", 'name' => "Chiperz"];
+                $to = ['email' => $email, 'name' => "user"];
+                $subject = 'Chiperz - Création de votre compte';
                 $link = 'http://' . $_SERVER['HTTP_HOST'];
                 $confirm_link = $link . '/register?token=' . $token;
 
-                $email = Helpers::mailer($from, $to, $subject, ['[appname]', '[firstname]', '[email]', '[link]', '[confirm_link]'], ["Chiperz", ucfirst("benjamin"), $to['email'], $link, $confirm_link], true, 'registered');
+                $email = Helpers::mailer($from, $to, $subject, $confirm_link, true);
                 if ($email['error']) {
                     echo $email["error_message"];
                 }
@@ -140,13 +140,13 @@ class SecurityController
 
                     // send email with token
                     $email = $_POST["email"];
-                    $from = ['email' => "chiperz.esgi@gmail.com", 'name' => "toto"];
-                    $to = ['email' => $email, 'name' => "benjamin"];
-                    $subject = 'Chiperz Réinitialisation de votre mot de passe';
+                    $from = ['email' => "chiperz.esgi@gmail.com", 'name' => "Chiperz"];
+                    $to = ['email' => $email, 'name' => "user"];
+                    $subject = 'Chiperz - Réinitialisation de votre mot de passe';
                     $link = 'http://' . $_SERVER['HTTP_HOST'];
                     $confirm_link = $link . '/forgot-password?token=' . $token;
     
-                    $email = Helpers::mailer($from, $to, $subject, ['[appname]', '[firstname]', '[email]', '[link]', '[confirm_link]'], ["Chiperz", ucfirst("benjamin"), $to['email'], $link, $confirm_link], true, 'registered');
+                    $email = Helpers::mailer($from, $to, $subject, $confirm_link, true);
                     if ($email['error']) {
                         echo $email["error_message"];
                     }

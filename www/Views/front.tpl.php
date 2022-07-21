@@ -6,7 +6,7 @@
 </head>
 
 <body>
-  <?php include("partial/menutest.partial.php"); ?>
+  <?php include("partial/menuFront.partial.php"); ?>
   <div class="front container">
     <?php include $this->view . ".view.php"; ?>
   </div>

@@ -119,12 +119,6 @@
   action: main
   roles: ["admin"]
 
-# /admin/comment:
-#   controller: comments
-#   action: delete
-#   roles: ["admin"]
-
-
 
 # CustomizationController
 /admin/customization:

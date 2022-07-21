@@ -9,7 +9,6 @@ class Comment extends Database
 
     protected $id = null;
     protected $text;
-    protected $reports = 0;
     protected $user_id;
     protected $product_id;
     protected $createdAt;
@@ -42,22 +41,6 @@ class Comment extends Database
     public function setText($text): void
     {
         $this->text = $text;
-    }
-
-    /**
-     * Get the value of reports
-     */
-    public function getReports(): int
-    {
-        return $this->reports;
-    }
-
-    /**
-     * Set the value of reports
-     */
-    public function setReports($reports): void
-    {
-        $this->reports = $reports;
     }
 
     /**
@@ -119,32 +102,6 @@ class Comment extends Database
     public function save()
     {
         parent::save();
-    }
-
-    public function getFormComment($value = [], $actionType = null): array
-    {
-        if($actionType == "delete") {
-            return [
-                "config" => [
-                    "method" => "POST",
-                    "action" => "",
-                    "uploadform" => "multipart/form-data",
-                    "submit" => "Supprimer",
-                ],
-                "inputs" => [
-                    "delete" => [
-                        "type" => "hidden",
-                        "name" => "delete",
-                        "value" => "true",
-                    ],
-                    "id" => [
-                        "type" => "hidden",
-                        "name" => "id",
-                        "value" => $value["id"],
-                    ],
-                ],
-            ];
-        }
     }
 
     public function getFormAddComment() {

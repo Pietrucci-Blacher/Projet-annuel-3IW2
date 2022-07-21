@@ -1,6 +1,12 @@
+<?php if (isset($title)) : ?>
+    <title><?= $title ?></title>
+<?php endif; ?>
 <meta charset='UTF-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 <meta name='description' content='page description'>
+<link rel="apple-touch-icon" sizes="180x180" href="/Public/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/Public/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/Public/images/favicon-16x16.png">
 <link rel="stylesheet" href="/Public/css/framework.css">
 <link rel="stylesheet" href="/Public/css/stylesheet.css">
 <link rel="stylesheet" href="/Public/css/normalize.css">

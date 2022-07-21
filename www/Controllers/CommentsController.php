@@ -4,18 +4,20 @@ namespace App\Controller;
 
 use App\Core\View;
 use App\Models\Comment;
+use App\Models\Report;
 
 class CommentsController
 {
   public function main()
   {
     $view = new View("comments/main", "back");
-
+    $reportModel = new Report();
     $comment = new Comment();
     $comments = $comment->findAll();
     $headersComments = ["Date", "Produit", "Texte", "Ajouté par", "Nbre de signalements", ""];
     $view->assign("headersComments", $headersComments);
     $view->assign("comments", $comments);
+    $view->assign("reportModel", $reportModel);
 
     if(isset($_POST["id"])){
       $comment->delete($_POST["id"]);
