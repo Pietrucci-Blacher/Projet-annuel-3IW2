@@ -1,6 +1,5 @@
 <form id="form" method="<?= $config["config"]["method"] ?? "POST" ?>" action="<?= $config["config"]["action"] ?? "" ?>" enctype="<?= $config["config"]["uploadform"] ? "multipart/form-data" : "" ?>">
     <?php foreach ($config["inputs"] as $name => $input) : ?>
-
         <?php if (isset($input["label"])) : ?>
             <label class="label" for="<?= $input["id"] ?>"><?= $input["label"] ?></label>
         <?php endif ?>

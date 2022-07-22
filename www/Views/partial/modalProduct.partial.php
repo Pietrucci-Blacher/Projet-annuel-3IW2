@@ -23,26 +23,33 @@
                     <p class="modal__comment__date"><?= $comment->getCreatedAt(); ?></p>
                     <p class="modal__comment__text"><?= $comment->getText(); ?></p>
                     <div class="modal__comment__actions">
-                        <?php if ($_SESSION["user"]["role"] == "admin") : ?>
+                        <?php if (isset($_SESSION["user"]) && $_SESSION["user"]["role"] == "admin") : ?>
                             <form method="post">
                                 <input type="hidden" name="id" value="<?= $comment->getId() ?>">
                                 <input type="submit" value="Supprimer" class="small-btn small-btn--alert">
                             </form>
+                            <?php
 
+                            ?>
                         <?php endif; ?>
                         <?php
-                        $reportFind = $config["reportModel"]->find([
-                            "comment_id" => $comment->getId(),
-                            "user_id" => $_SESSION["user"]["id"]
-                        ]);
+                        if (isset($_SESSION["user"])) {
+                            $reportFind = $config["reportModel"]->find([
+                                "comment_id" => $comment->getId(),
+                                "user_id" => $_SESSION["user"]["id"]
+                            ]);
+                            if (empty($reportFind && isset($_SESSION["user"]))) {
                         ?>
-                        <?php if (empty($reportFind)) : ?>
-                            <form method="post">
-                                <input type="hidden" name="reportCommentId" value="<?= $comment->getId() ?>">
-                                <input type="hidden" name="reportUserId" value="<?= $_SESSION["user"]["id"] ?>">
-                                <input type="submit" value="Signaler" class="small-btn small-btn--alert">
-                            </form>
-                        <?php endif; ?>
+                                <form method="post">
+                                    <input type="hidden" name="reportCommentId" value="<?= $comment->getId() ?>">
+                                    <input type="hidden" name="reportUserId" value="<?= $_SESSION["user"]["id"] ?>">
+                                    <input type="submit" value="Signaler" class="small-btn small-btn--alert">
+                                </form>
+                        <?php
+                            }
+                        }
+                        ?>
+
 
                     </div>
                     <!-- <p><?= $comment->getId(); ?></p>

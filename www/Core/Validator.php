@@ -12,18 +12,31 @@ class Validator
         if (count($data) != count($config["inputs"])) {
             $result[] = "Formulaire modifié par user";
         }
+ 
+        
         foreach ($config["inputs"] as $name => $input) {
-
             if (!isset($data[$name])) {
-                $result[] = "Il manque des champs";
+                $result[] = "Champ modifié";
             }
-            if (!empty($input["required"]) && empty($data[$name])) {
-                $result[] = "Vous avez supprimé l'attribut required";
-            }
+            // if ($input["required"] == true && empty($data[$name])) {
+            //     $result[] = "Vous avez supprimé l'attribut required";
+            // }
 
             if ($input["type"] == "password" && $input["id"] == "pwdRegister" && !self::checkPassword($data[$name])) {
                 $result[] = $input["error"];
             } else if ($input["type"] == "email"  && !self::checkEmail($data[$name])) {
+                $result[] = $input["error"];
+            }
+
+            if ($input["type"] == "password" && $input["id"] == "pwdConfirmRegister") {
+                $result[] = $input["error"];
+            }
+
+            if($input["type"] == "number" && !self::checkNumber($data[$name])) {
+                $result[] = "Ce champ doit être un nombre";
+            }
+
+            if($input["type"] == "text" && !self::checkText($data[$name], $input["min"], $input["max"])) {
                 $result[] = $input["error"];
             }
         }
@@ -40,5 +53,15 @@ class Validator
     public static function checkEmail($email): bool
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
+
+    public static function checkText($text, $min, $max): bool
+    {
+        return strlen($text) >= $min && strlen($text) <= $max;
+    }
+
+    public static function checkNumber($number): bool
+    {
+        return is_numeric($number);
     }
 }

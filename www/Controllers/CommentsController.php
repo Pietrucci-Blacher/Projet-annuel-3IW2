@@ -11,6 +11,7 @@ class CommentsController
   public function main()
   {
     $view = new View("comments/main", "back");
+    $view->assign("title", "Chiperz - Commentaires");
     $reportModel = new Report();
     $comment = new Comment();
     $comments = $comment->findAll();
@@ -27,14 +28,15 @@ class CommentsController
 
   public function add() {
     $view = new View("comments/add", "front");
+    
 
     if(isset($_POST["comment"])){
       $comment = new Comment();
-      $comment->setText($_POST["text"]);
-      $comment->setProductId($_POST["product_id"]);
-      $comment->setUserId($_POST["user_id"]);
+      $comment->setText(htmlspecialchars($_POST["text"]));
+      $comment->setProductId(htmlspecialchars($_POST["product_id"]));
+      $comment->setUserId(htmlspecialchars($_POST["user_id"]));
       $comment->save();
-      header('location: /product?id='.$_POST["product_id"]);
+      header('location: /product?id='.htmlspecialchars($_POST["product_id"]));
     }
   }
 }

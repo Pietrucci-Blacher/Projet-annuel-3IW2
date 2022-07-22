@@ -229,7 +229,7 @@ class Product extends Database
                     "class" => "product_name",
                     "min" => 3,
                     "max" => 50,
-                    "error" => "Le nom du produit doit au moins contenir 3 caractères",
+                    "error" => "Le nom du produit doit au moins contenir 3 caractères et ne doit pas dépasser 50 caractères",
                     "required" => true
                 ],
                 "description" => [
@@ -240,8 +240,8 @@ class Product extends Database
                     "id" => "product_description",
                     "class" => "product_description",
                     "min" => 3,
-                    "max" => 50,
-                    "error" => "La description du produit doit au moins contenir 3 caractères",
+                    "max" => 100,
+                    "error" => "La description du produit doit au moins contenir 3 caractères et ne doit pas dépasser 100 caractères",
                     "required" => true,
                 ],
                 "price" => [
