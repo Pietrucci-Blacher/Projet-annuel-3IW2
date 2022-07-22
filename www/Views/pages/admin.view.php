@@ -28,7 +28,6 @@
       <tr class="styled-row" onclick="redirectToEdit(<?= $page->getId() ?>)">
         <td><?= $page->getId() ?> </td>
         <td><?= $page->getName() ?></td>
-        <td><?= strlen($page->getContent()) ?></td>
       </tr>
       <?php endforeach; ?>
       <?php endif ?>

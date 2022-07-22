@@ -23,6 +23,7 @@ class DashboardController
         $lastname = $user["lastname"];
 
         $view = new View("dashboard/main", "back");
+        $view->assign("title", "Chiperz - Dashboard");
         $view->assign("firstname", $firstname);
         $view->assign("lastname", $lastname);
 
