@@ -42,28 +42,23 @@ class ProductsController
 
     if (!empty($_POST)) {
 
-      $result = Validator::run($product->getFormProduct(), $_POST);
-
-      if (empty($result)) {
-
-        $image = $_FILES["product_image"]["tmp_name"];
-        $data = base64_encode(file_get_contents(addslashes($image)));
-        $product->setImage($data);
 
 
-        $product->setName(htmlspecialchars($_POST["name"]));
-        $product->setDescription(htmlspecialchars($_POST["description"]));
-        $product->setPrice(htmlspecialchars($_POST["price"]));
-        $product->setQuantity(htmlspecialchars($_POST["quantity"]));
-        $product->setCategoryId(htmlspecialchars($_POST["category_id"]));
-        $_POST["is_published"] && $product->setIsPublished(htmlspecialchars($_POST["is_published"]));
-        $product->save();
+      $image = $_FILES["product_image"]["tmp_name"];
+      $data = base64_encode(file_get_contents(addslashes($image)));
+      $product->setImage($data);
 
-        Session::addMessage("ADD_PRODUCT_SUCCESS", "Le produit a bien été ajouté", "success");
-        header('location: /admin/products');
-      } else {
-        $view->assign("errors", $result);
-      }
+
+      $product->setName(htmlspecialchars($_POST["name"]));
+      $product->setDescription(htmlspecialchars($_POST["description"]));
+      $product->setPrice(htmlspecialchars($_POST["price"]));
+      $product->setQuantity(htmlspecialchars($_POST["quantity"]));
+      $product->setCategoryId(htmlspecialchars($_POST["category_id"]));
+      $_POST["is_published"] && $product->setIsPublished(htmlspecialchars($_POST["is_published"]));
+      $product->save();
+
+      Session::addMessage("ADD_PRODUCT_SUCCESS", "Le produit a bien été ajouté", "success");
+      header('location: /admin/products');
     }
   }
 
