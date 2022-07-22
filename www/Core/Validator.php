@@ -28,9 +28,9 @@ class Validator
                 $result[] = $input["error"];
             }
 
-            if ($input["type"] == "password" && $input["id"] == "pwdConfirmRegister") {
-                $result[] = $input["error"];
-            }
+            // if ($input["type"] == "password" && $input["id"] == "pwdConfirmRegister") {
+            //     $result[] = $input["error"];
+            // }
 
             if($input["type"] == "number" && !self::checkNumber($data[$name])) {
                 $result[] = "Ce champ doit être un nombre";
