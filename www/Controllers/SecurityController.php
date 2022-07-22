@@ -94,7 +94,7 @@ class SecurityController
                 $from = ['email' => "chiperz.esgi@gmail.com", 'name' => "Chiperz"];
                 $to = ['email' => $email, 'name' => "user"];
                 $subject = 'Chiperz - Création de votre compte';
-                $link = 'https://' . $_SERVER['HTTP_HOST'];
+                $link = 'http://' . $_SERVER['HTTP_HOST'];
                 $confirm_link = $link . '/register?token=' . $token;
 
                 $email = Helpers::mailer($from, $to, $subject, $confirm_link, true);
@@ -149,7 +149,7 @@ class SecurityController
                     $from = ['email' => "chiperz.esgi@gmail.com", 'name' => "Chiperz"];
                     $to = ['email' => $email, 'name' => "user"];
                     $subject = 'Chiperz - Réinitialisation de votre mot de passe';
-                    $link = 'https://' . $_SERVER['HTTP_HOST'];
+                    $link = 'http://' . $_SERVER['HTTP_HOST'];
                     $confirm_link = $link . '/forgot-password?token=' . $token;
     
                     $email = Helpers::mailer($from, $to, $subject, $confirm_link, true);
