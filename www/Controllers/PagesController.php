@@ -12,6 +12,7 @@ class PagesController
     $pageModel = new Page();
     $pages = $pageModel->findAll();
     $view = new View('pages/main', 'front');
+    $view->assign('title', 'Chiperz - Page');
     $view->assign('pages', $pages);
 
     $navigation = [];
@@ -25,7 +26,7 @@ class PagesController
     $view->assign('navigation', $navigation);
 
     if (!empty($_GET["id"])) {
-      $page = $pageModel->find(['id' => $_GET["id"]]);
+      $page = $pageModel->find(['id' => htmlspecialchars($_GET["id"])]);
       $view->assign("page", $page);
     } else {
       echo ('no id');
@@ -37,9 +38,10 @@ class PagesController
   {
     $page = new Page();
     $pages = $page->findAll();
-    $tableHeaders = ['id', 'Nom', 'Taille du contenu'];
+    $tableHeaders = ['Id', 'Nom'];
 
     $view = new View("pages/admin", "back");
+    $view->assign("title", "Chiperz - Pages");
     $view->assign('tableHeaders', $tableHeaders);
     $view->assign('pages', $pages);
   }
@@ -47,14 +49,15 @@ class PagesController
   public function add()
   {
     $view = new View("pages/add", "back");
+    $view->assign("title", "Chiperz - Ajouter une page");
 
     $page = new Page();
     $view->assign("page", $page);
 
     // Todo: Validation des champs du formulaire 
     if (!empty($_POST)) {
-      $page->setName($_POST["name"]);
-      $page->setContent($_POST["wysiwyg"]);
+      $page->setName(htmlspecialchars($_POST["name"]));
+      $page->setContent(htmlspecialchars($_POST["wysiwyg"]));
       $page->save();
       header('location: /admin/pages');
     }
@@ -63,12 +66,13 @@ class PagesController
   public function edit()
   {
     $view = new View("pages/edit", "back");
+    $view->assign("title", "Chiperz - Modifier une page");
 
-    $pageModel = new page();
+    $pageModel = new Page();
     $view->assign("pageModel", $pageModel);
 
     if (!empty($_GET["id"])) {
-      $page = $pageModel->find(['id' => $_GET["id"]]);
+      $page = $pageModel->find(['id' => htmlspecialchars($_GET["id"])]);
       $view->assign("page", $page);
     } else {
       header('location: /admin/pages');
