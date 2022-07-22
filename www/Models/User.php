@@ -198,7 +198,7 @@ class User extends Database
                     "class" => "inputRegister",
                     "required" => true,
                     "confirm" => "password",
-                    "error" => "Votre mot de passe de confirmation ne correspond pas",
+                    "error" => "Votre mot de passe de confirmation doit être identique au mot de passe",
                 ],
                 // "captcha"=>[
                 //     "type" => "",
@@ -254,6 +254,7 @@ class User extends Database
                     "id" => "emailRegister",
                     "class" => "inputRegister",
                     "required" => true,
+                    "error" => "Email incorrect",
                 ],
 
             ]

@@ -21,7 +21,7 @@ class SecurityController
 
 
         $view = new View("auth/login", "blank");
-        $view->assign("title", "Espace connexion client - Chiperz");
+        $view->assign("title", "Chiperz - Connexion");
         $view->assign("user", $user);
 
 
@@ -29,8 +29,8 @@ class SecurityController
         if (!empty($_POST)) {
             $errors = [];
 
-            $email = $_POST["email"];
-            $password = $_POST["password"];
+            $email = htmlspecialchars($_POST["email"]);
+            $password = htmlspecialchars($_POST["password"]);
 
             $data = $user->find(['email' => $email]);
 
@@ -64,28 +64,30 @@ class SecurityController
         }
         $user = new UserModel();
         $view = new View("auth/register", "blank");
+        $view->assign("title", "Chiperz - Inscription");
         $view->assign("user", $user);
 
         if (!empty($_POST)) {
             $errors = [];
             $result = Validator::run($user->getFormRegister(), $_POST);
+
             if (empty($result)) {
                 $token = str_shuffle(md5(uniqid()));
 
-                $data = $user->find(['email' => $_POST["email"]]);
+                $data = $user->find(['email' => htmlspecialchars($_POST["email"])]);
                 if (!empty($data)) {
                     $errors[] = "Cet email est déjà utilisé";
                     $view->assign("errors", $errors);
                 }
 
-                $user->setEmail($_POST["email"]);
-                $user->setPassword($_POST["password"]);
-                $user->setLastname($_POST["lastname"]);
-                $user->setFirstname($_POST["firstname"]);
+                $user->setEmail(htmlspecialchars($_POST["email"]));
+                $user->setPassword(htmlspecialchars($_POST["password"]));
+                $user->setLastname(htmlspecialchars($_POST["lastname"]));
+                $user->setFirstname(htmlspecialchars($_POST["firstname"]));
                 $user->setToken($token);
                 $user->save();
 
-                $email = $_POST["email"];
+                $email = htmlspecialchars($_POST["email"]);
                 $from = ['email' => "chiperz.esgi@gmail.com", 'name' => "Chiperz"];
                 $to = ['email' => $email, 'name' => "user"];
                 $subject = 'Chiperz - Création de votre compte';
@@ -105,7 +107,7 @@ class SecurityController
 
         if (!empty($_GET["token"])) {
 
-            $sql = $user->select($user->getTable(), ["*"])->where("token", $_GET["token"])->getQuery();
+            $sql = $user->select($user->getTable(), ["*"])->where("token", htmlspecialchars($_GET["token"]))->getQuery();
             $result = $user->fetchQuery($sql);
             if (empty($result)) {
                 // if token not found, redirect to login
@@ -123,6 +125,7 @@ class SecurityController
     public function resetPassword() {
         $user = new UserModel();
         $view = new View("auth/forgotPassword", "blank");
+        $view->assign("title", "Chiperz - Mot de passe oublié");
         $view->assign("user", $user);
         
         $view->assign("emailSent", false);
@@ -132,14 +135,14 @@ class SecurityController
             $result = Validator::run($user->getFormResetPassword(), $_POST);
 
             if(empty($result)) {
-                $data = $user->find(['email' => $_POST["email"]]);
+                $data = $user->find(['email' => htmlspecialchars($_POST["email"])]);
                 if(!empty($data)) {
                     $token = str_shuffle(md5(uniqid()));
                     $update = $user->update($user->getTable(), ["reset_token" => "'{$token}'"])->where("id", $data["id"])->getQuery();
                     $user->executeQuery($update);
 
                     // send email with token
-                    $email = $_POST["email"];
+                    $email = htmlspecialchars($_POST["email"]);
                     $from = ['email' => "chiperz.esgi@gmail.com", 'name' => "Chiperz"];
                     $to = ['email' => $email, 'name' => "user"];
                     $subject = 'Chiperz - Réinitialisation de votre mot de passe';
@@ -161,7 +164,7 @@ class SecurityController
         }
 
         if(!empty($_GET)) {
-            $token = $_GET["token"];
+            $token = htmlspecialchars($_GET["token"]);
             $data = $user->find(['reset_token' => $token]);
             if(!empty($data)) {
                 $view->assign("emailSent", true);
@@ -171,7 +174,7 @@ class SecurityController
         }
 
         if(!empty($_POST["password"]) && !empty($_GET)) {
-            $token = $_GET["token"];
+            $token = htmlspecialchars($_GET["token"]);
             $errors = [];
             $result = Validator::run($user->getFormNewPassword(), $_POST);
 

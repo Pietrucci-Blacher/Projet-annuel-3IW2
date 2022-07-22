@@ -39,9 +39,9 @@ class HomeController
       $reportModel = new Report();
       $comment = new Comment();
       $comments = $comment->findAll([
-        "product_id" => $_GET["id"]
+        "product_id" => htmlspecialchars($_GET["id"])
       ]);
-      $productDetail = $product->find(["id" => $_GET["id"]]);
+      $productDetail = $product->find(["id" => htmlspecialchars($_GET["id"])]);
 
       $commentModel = new Comment();
       $view->assign('commentModel', $commentModel);
@@ -56,11 +56,11 @@ class HomeController
     // add comment
     if(isset($_POST["text"]) && isset($_GET["id"])) {
       $comment = new Comment();
-      $comment->setText($_POST["text"]);
-      $comment->setProductId($_GET["id"]);
-      $comment->setUserId($_SESSION["user"]["id"]);
+      $comment->setText(htmlspecialchars($_POST["text"]));
+      $comment->setProductId(htmlspecialchars($_GET["id"]));
+      $comment->setUserId(htmlspecialchars($_SESSION["user"]["id"]));
       $comment->save();
-      header('location: /product?id='.$_GET["id"]);
+      header('location: /product?id='.htmlspecialchars($_GET["id"]));
     }
 
     // delete comment
@@ -72,33 +72,18 @@ class HomeController
     if(isset($_POST["reportCommentId"]) && isset($_POST["reportUserId"])) {
       $report = new Report();
       $reportFind = $report->find([
-        "comment_id" => $_POST["reportCommentId"],
-        "user_id" => $_POST["reportUserId"]
+        "comment_id" => htmlspecialchars($_POST["reportCommentId"]),
+        "user_id" => htmlspecialchars($_POST["reportUserId"])
       ]);
 
       if(empty($reportFind)) {
         // pas de report
 
-        $report->setCommentId($_POST["reportCommentId"]);
-        $report->setUserId($_POST["reportUserId"]);
+        $report->setCommentId(htmlspecialchars($_POST["reportCommentId"]));
+        $report->setUserId(htmlspecialchars($_POST["reportUserId"]));
         $report->save();
-        header('location: /product?id='.$_GET["id"]);
-      } else {
-        // report déjà existant 
-      }
-
-      var_dump($reportFind);
-
-      die();
-
-
-
-      // seulement si le commentaire n'a pas déjà été signalé par l'user
-      $report->setCommentId($_POST["reportCommentId"]);
-      $report->setUserId($_POST["reportUserId"]);
-      $report->save();
-      header('location: /');
-
+        header('location: /product?id='.htmlspecialchars($_GET["id"]));
+      } 
     }
   }
 

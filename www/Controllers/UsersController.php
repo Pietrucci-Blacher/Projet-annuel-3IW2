@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Core\View;
 use App\Core\Session;
+use App\Core\Validator;
 use App\Models\User;
 
 class UsersController
@@ -14,6 +15,7 @@ class UsersController
     $users = $user->findAll();
 
     $view = new View("users/main", "back");
+    $view->assign("title", "Chiperz - Utilisateurs");
     $view->assign('users', $users);
 
     $headers = ["id", "Nom", "Prénom", "Email", "Compte confirmé", "Role"];
@@ -23,11 +25,12 @@ class UsersController
   public function edit()
   {
     $view = new View("users/edit", "back");
+    $view->assign("title", "Chiperz - Modifier un utilisateur");
 
     $userModel = new User();
     $view->assign('userModel', $userModel);
     if (!empty($_GET["id"])) {
-      $user = $userModel->find(['id' => $_GET['id']]);
+      $user = $userModel->find(['id' => htmlspecialchars($_GET['id'])]);
       if(!empty($user)) {
         $view->assign('user', $user);
       } else {
@@ -40,11 +43,11 @@ class UsersController
 
     if (!empty($_GET['id']) && !empty($_POST)) {
       $update = $userModel->update($userModel->getTable(), [
-        'firstname' => "'{$_POST['firstname']}'",
-        'lastname' => "'{$_POST['lastname']}'",
-        'email' => "'{$_POST['email']}'",
-        'role' => "'{$_POST['role']}'",
-      ])->where('id', $_GET['id'])->getQuery();
+        'firstname' => htmlspecialchars("'{$_POST['firstname']}'"),
+        'lastname' => htmlspecialchars("'{$_POST['lastname']}'"),
+        'email' => htmlspecialchars("'{$_POST['email']}'"),
+        'role' => htmlspecialchars("'{$_POST['role']}'"),
+      ])->where('id', htmlspecialchars($_GET['id']))->getQuery();
 
       $userModel->executeQuery($update);
       Session::addMessage("EDIT_USER_SUCCESS", "L'utilisateur a bien été modifié", "success");
