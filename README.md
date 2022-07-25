@@ -23,3 +23,7 @@
 - [Chemseddine Ameziane](https://github.com/chems917)
 - [Benjamin Li](https://github.com/benjaminli7)
 - [Maxime Pietrucci-Blacher](https://github.com/Pietrucci-Blacher)
+
+# Design Pattern 
+- [Query Builder] (https://github.com/Pietrucci-Blacher/Projet-annuel-3IW2/blob/main/www/Core/Database.php)
+- [Singleton] (https://github.com/Pietrucci-Blacher/Projet-annuel-3IW2/blob/main/www/Core/Config.php)
